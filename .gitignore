@@ -38,6 +38,7 @@ gradle-app.setting
 ## IntelliJ
 ##############################
 out/
+logs/
 .idea/
 .idea_modules/
 *.iml
@@ -46,7 +47,6 @@ out/
 /out
 out\production\trabalho-final-modulo1\view
 *.jpb
-logs
 
 ##############################
 ## Eclipse
