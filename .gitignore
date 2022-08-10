@@ -46,7 +46,7 @@ out/
 /out
 out\production\trabalho-final-modulo1\view
 *.jpb
-logs/
+logs
 
 ##############################
 ## Eclipse
