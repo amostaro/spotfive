@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;last_opened_file_path&quot;: &quot;/home/amostaro/ideaProjects&quot;
+  }
+}</component>
+  <component name="RunManager" selected="Application.TokenProviderApplication">
+    <configuration name="SummitBootcampApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.ciandt.summit.bootcamp2022.SummitBootcampApplication" />
+      <module name="summit-bootcamp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ciandt.summit.bootcamp2022.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TokenProviderApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.ciandt.token.provider.TokenProviderApplication" />
+      <module name="token-provider" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ciandt.token.provider.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.TokenProviderApplication" />
+        <item itemvalue="Application.SummitBootcampApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+</project>
