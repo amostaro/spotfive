@@ -45,6 +45,8 @@ out/
 *.iws
 /out
 out\production\trabalho-final-modulo1\view
+*.jpb
+logs/
 
 ##############################
 ## Eclipse
