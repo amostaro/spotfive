@@ -18,6 +18,6 @@ public class MusicController {
 
     @GetMapping
     public List<MusicEntity> get() {
-        return springMusicRepository.findMusicEntityOrderByNameLikeIgnoreCase("The Beatles");
+        return springMusicRepository.findMusicOrderByNameLikeIgnoreCase("Mars");
     }
 }

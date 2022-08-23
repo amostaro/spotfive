@@ -5,13 +5,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 @Getter
 @Setter
-@Entity
+@Entity(name = "Artistas")
 @Table(name = "Artistas")
-public class ArtistEntity {
+public class ArtistEntity implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

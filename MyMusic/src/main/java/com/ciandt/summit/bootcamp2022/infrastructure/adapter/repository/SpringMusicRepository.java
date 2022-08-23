@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface SpringMusicRepository extends JpaRepository<MusicEntity, String> {
 
-    List<MusicEntity> findMusicEntityOrderByNameLikeIgnoreCase(String name);
+    List<MusicEntity> findMusicOrderByNameLikeIgnoreCase(String name);
 }

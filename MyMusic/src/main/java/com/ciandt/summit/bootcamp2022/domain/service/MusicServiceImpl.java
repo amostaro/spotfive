@@ -18,8 +18,8 @@ public class MusicServiceImpl implements MusicServicePort {
 
     @Override
     public List<MusicDTO> findByArtistOrMusic(String searchName) {
-        List<MusicDTO> musicEntityList = this.musicRepositoryPort
+        List<MusicDTO> MusicList = this.musicRepositoryPort
                 .findArtistEntityAndMusicEntityListOrderByName(searchName);
-        return musicEntityList;
+        return MusicList;
     }
 }
