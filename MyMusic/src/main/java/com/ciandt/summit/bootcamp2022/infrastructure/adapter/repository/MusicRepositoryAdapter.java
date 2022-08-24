@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class MusicRepositoryAdapter implements MusicRepositoryPort {
 
 
-    private final ObjectMapper modelMapper;
+    private final ObjectMapper objectMapper;
 
 
     private final SpringMusicRepository springMusicRepository;
