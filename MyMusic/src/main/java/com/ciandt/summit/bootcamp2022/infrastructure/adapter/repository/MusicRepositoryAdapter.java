@@ -24,6 +24,7 @@ public class MusicRepositoryAdapter implements MusicRepositoryPort {
     @Override
     public List<MusicDTO> findArtistEntityAndMusicEntityListOrderByName(String searchName) {
         List<MusicEntity> allResultsByArtistOrMusic = springMusicRepository.findAllByNameLikeIgnoreCase(searchName);
-        return allResultsByArtistOrMusic.stream().map(music -> modelMapper.convertValue(music, MusicDTO.class)).collect(Collectors.toList());
+        List<MusicDTO> collect = allResultsByArtistOrMusic.stream().map(music -> modelMapper.convertValue(music, MusicDTO.class)).collect(Collectors.toList());
+        return collect;
     }
 }

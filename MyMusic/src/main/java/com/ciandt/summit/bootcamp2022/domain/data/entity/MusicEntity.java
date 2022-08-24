@@ -22,11 +22,9 @@ public class MusicEntity implements Serializable{
     private String name;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Artistaid", referencedColumnName = "Id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "artistaid", referencedColumnName = "Id")
     private ArtistEntity artistEntity;
 
-    @Column(name = "Id", insertable = false, updatable = false)
-    private String artistId;
 
 }

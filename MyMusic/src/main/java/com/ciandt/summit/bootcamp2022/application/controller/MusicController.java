@@ -18,7 +18,7 @@ public class MusicController {
     private final MusicServicePort musicServicePort;
 
     @GetMapping
-    public List<MusicDTO> get(@RequestParam String name) {
-        return musicServicePort.findAllByNameLikeIgnoreCase(name);
+    public List<MusicDTO> get(@RequestParam String filter) {
+        return musicServicePort.findAllByNameLikeIgnoreCase(filter);
     }
 }

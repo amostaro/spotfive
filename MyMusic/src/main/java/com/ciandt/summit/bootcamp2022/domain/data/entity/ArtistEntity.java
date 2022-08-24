@@ -23,7 +23,7 @@ public class ArtistEntity implements Serializable{
     private String name;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "artistEntity",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "artistEntity", cascade = CascadeType.ALL)
     private Set<MusicEntity> musicEntityList;
 
 }
