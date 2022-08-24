@@ -7,5 +7,5 @@ import java.util.List;
 public interface MusicServicePort {
 
 
-    List<MusicDTO> findByArtistOrMusic(String seachName);
+    List<MusicDTO> findAllByNameLikeIgnoreCase(String seachName);
 }

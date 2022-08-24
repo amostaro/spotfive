@@ -13,6 +13,5 @@ public interface SpringMusicRepository extends JpaRepository<MusicEntity, String
     @Query("SELECT m FROM Musicas m WHERE upper(m.name) LIKE %:name%")
     List<MusicEntity> findAllByNameLikeIgnoreCase(String name);
 
-
 }
 
