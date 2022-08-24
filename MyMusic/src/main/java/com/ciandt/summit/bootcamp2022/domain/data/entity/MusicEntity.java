@@ -26,5 +26,7 @@ public class MusicEntity implements Serializable{
     @JoinColumn(name = "artistaid", referencedColumnName = "Id")
     private ArtistEntity artistEntity;
 
+    @Column(name = "Id", insertable = false, updatable = false)
+    private String artistId;
 
 }

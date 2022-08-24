@@ -8,4 +8,6 @@ public interface ArtistRepositoryPort {
 
     List<ArtistDTO> findArtistEntityAndMusicEntityListOrderByName(String searchName);
 
+    ArtistDTO findById(String id);
+
 }

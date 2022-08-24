@@ -26,4 +26,10 @@ public class ArtistRepositoryAdapter implements ArtistRepositoryPort {
         List<ArtistEntity> allResultsByArtistOrMusic = springArtistRepository.findAllByNameLikeIgnoreCase(searchName);
         return allResultsByArtistOrMusic.stream().map(artist -> objectMapper.convertValue(artist, ArtistDTO.class)).collect(Collectors.toList());
     }
+
+    @Override
+    public ArtistDTO findById(String id) {
+        return objectMapper.convertValue(springArtistRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Não encontrado")), ArtistDTO.class);
+        //arrumar exception
+    }
 }

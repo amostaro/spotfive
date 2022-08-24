@@ -1,19 +1,18 @@
 package com.ciandt.summit.bootcamp2022.domain.data.dto;
 
 import com.ciandt.summit.bootcamp2022.domain.data.entity.ArtistEntity;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
+@EqualsAndHashCode
 public class MusicDTO {
 
     private String id;
+
     private String name;
-    private ArtistDTO artistEntity;
+
+    @JsonProperty(value = "artist")
+    private ArtistEntity artistEntity;
 
 }
