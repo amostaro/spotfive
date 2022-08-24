@@ -3,6 +3,7 @@ package com.ciandt.summit.bootcamp2022.application.controller;
 import com.ciandt.summit.bootcamp2022.domain.data.dto.DataDTO;
 import com.ciandt.summit.bootcamp2022.domain.data.dto.MusicDTO;
 import com.ciandt.summit.bootcamp2022.domain.port.interfaces.MusicServicePort;
+import com.ciandt.summit.bootcamp2022.domain.service.exception.ArtistOrMusicNotFoundException;
 import com.ciandt.summit.bootcamp2022.domain.service.exception.LengthValidationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +22,7 @@ public class MusicController {
     private final MusicServicePort musicServicePort;
 
     @GetMapping
-    public DataDTO get(@RequestParam String filtro) throws LengthValidationException {
+    public DataDTO get(@RequestParam String filtro) throws LengthValidationException, ArtistOrMusicNotFoundException {
         List<MusicDTO> allByNameLikeIgnoreCase = musicServicePort.findAllByNameLikeIgnoreCase(filtro);
         DataDTO dataDTO = new DataDTO();
         dataDTO.setData(new HashSet<>(allByNameLikeIgnoreCase));

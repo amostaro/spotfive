@@ -38,4 +38,13 @@ public class GlobalExceptionHandler {
         body.put("message", exception.getMessage());
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(ArtistOrMusicNotFoundException.class)
+    public ResponseEntity<Object> handleException(ArtistOrMusicNotFoundException exception) {
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", new Date());
+        body.put("status", HttpStatus.NO_CONTENT.value());
+        body.put("message", exception.getMessage());
+        return new ResponseEntity<>(body, HttpStatus.NO_CONTENT);
+    }
 }
