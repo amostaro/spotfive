@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @RestController
@@ -27,8 +25,6 @@ public class MusicController {
         DataDTO dataDTO = new DataDTO();
         dataDTO.setData(new HashSet<>(allByNameLikeIgnoreCase));
         return dataDTO;
-
     }
-
 
 }
