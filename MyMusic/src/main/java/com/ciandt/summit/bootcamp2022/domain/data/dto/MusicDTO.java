@@ -1,18 +1,22 @@
 package com.ciandt.summit.bootcamp2022.domain.data.dto;
 
-import com.ciandt.summit.bootcamp2022.domain.data.entity.ArtistEntity;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode
 public class MusicDTO {
 
+    @Schema(description = "Id da música")
     private String id;
 
+    @Schema(description = "Nome da música")
     private String name;
 
     @JsonProperty(value = "artist")
-    private ArtistEntity artistEntity;
+    @Schema(description = "Autor da música")
+    private ArtistDTO artistEntity;
 
 }
