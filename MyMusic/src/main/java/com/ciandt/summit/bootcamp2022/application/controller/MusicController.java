@@ -1,7 +1,6 @@
 package com.ciandt.summit.bootcamp2022.application.controller;
 
 import com.ciandt.summit.bootcamp2022.domain.data.dto.DataDTO;
-import com.ciandt.summit.bootcamp2022.domain.data.dto.MusicDTO;
 import com.ciandt.summit.bootcamp2022.domain.port.interfaces.MusicServicePort;
 import com.ciandt.summit.bootcamp2022.domain.service.exception.ArtistOrMusicNotFoundException;
 import com.ciandt.summit.bootcamp2022.domain.service.exception.LengthValidationException;
@@ -13,9 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.HashSet;
-import java.util.List;
 
 @ApiResponses(
         value = {
@@ -34,12 +30,8 @@ public class MusicController {
 
     @Operation(description = "Realiza a busca de todos os artistas ou músicas com os parâmetros informados")
     @GetMapping
-    public DataDTO getArtistOrMusic(@RequestParam String filtro) throws LengthValidationException, ArtistOrMusicNotFoundException {
-        List<MusicDTO> allByNameLikeIgnoreCase = musicServicePort.findAllByNameLikeIgnoreCase(filtro);
-        DataDTO dataDTO = new DataDTO();
-        dataDTO.setData(new HashSet<>(allByNameLikeIgnoreCase));
-        return dataDTO;
-
+    public DataDTO getArtistOrMusic(@RequestParam String filtro) throws LengthValidationException,ArtistOrMusicNotFoundException {
+        return musicServicePort.findAllByNameLikeIgnoreCase(filtro);
     }
 
 
