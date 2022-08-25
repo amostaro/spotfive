@@ -8,7 +8,10 @@ import com.ciandt.summit.bootcamp2022.domain.service.exception.ArtistOrMusicNotF
 import com.ciandt.summit.bootcamp2022.domain.service.exception.LengthValidationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
+import java.awt.print.Pageable;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -28,6 +31,7 @@ public class MusicServiceImpl implements MusicServicePort {
             log.info("Log de Operação inválida. A busca precisa ter no mínimo 3 caracteres, em: " + Calendar.getInstance().getTime() + ".");
             throw new LengthValidationException("Operação inválida. A busca precisa ter no mínimo 3 caracteres.");
         }
+
         List<MusicDTO> artistEntityAndMusicEntityListOrderByName =
                 this.musicRepositoryPort.findArtistEntityAndMusicEntityListOrderByName(searchName);
 

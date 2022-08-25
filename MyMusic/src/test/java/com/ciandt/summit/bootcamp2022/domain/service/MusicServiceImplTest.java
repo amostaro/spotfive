@@ -8,12 +8,14 @@ import com.ciandt.summit.bootcamp2022.domain.service.exception.ArtistOrMusicNotF
 import com.ciandt.summit.bootcamp2022.domain.service.exception.LengthValidationException;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -39,6 +41,7 @@ class MusicServiceImplTest {
     }
 
     @Test
+    @DisplayName("Should return music list properly")
     public void shouldReturnMusicListProperlyTest() throws ArtistOrMusicNotFoundException, LengthValidationException {
         List<MusicDTO> musicDTOList = new ArrayList<>();
 
@@ -62,6 +65,7 @@ class MusicServiceImplTest {
     }
 
     @Test
+    @DisplayName("Should return length validation exception")
     public void shouldReturnLengthValidationExceptionTest() throws LengthValidationException {
 
         LengthValidationException lengthValidationException = Assert.assertThrows(LengthValidationException.class, () ->
@@ -72,6 +76,7 @@ class MusicServiceImplTest {
     }
 
     @Test
+    @DisplayName("Should return artist or music not found exception")
     public void shouldReturnArtistOrMusicNotFoundExceptionTest() throws ArtistOrMusicNotFoundException {
 
         ArtistOrMusicNotFoundException artistOrMusicNotFoundException = Assert.assertThrows(ArtistOrMusicNotFoundException.class, () ->

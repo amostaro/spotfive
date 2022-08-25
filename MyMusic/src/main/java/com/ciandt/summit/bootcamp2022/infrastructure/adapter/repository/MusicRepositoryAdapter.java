@@ -10,8 +10,10 @@ import com.ciandt.summit.bootcamp2022.domain.service.ArtistServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
