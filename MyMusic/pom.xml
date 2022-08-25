@@ -45,7 +45,6 @@
             <artifactId>sqlite-dialect</artifactId>
             <version>1.0</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -71,10 +70,12 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-cache</artifactId>
     </dependency>
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-data-redis</artifactId>
-    </dependency>
+        <dependency>
+            <groupId>com.hazelcast</groupId>
+            <artifactId>hazelcast-spring</artifactId>
+            <version>5.1.3</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -90,6 +91,7 @@
                         </goals>
                         <configuration>
                             <classifier>spring-boot</classifier>
+                            <!--suppress UnresolvedMavenProperty -->
                             <mainClass>${fully.qualified.main.class}</mainClass>
                         </configuration>
                     </execution>

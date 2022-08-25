@@ -5,9 +5,11 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.io.Serializable;
+
 @Data
 @EqualsAndHashCode
-public class MusicDTO {
+public class MusicDTO implements Serializable {
 
     @Schema(description = "Id da música")
     private String id;

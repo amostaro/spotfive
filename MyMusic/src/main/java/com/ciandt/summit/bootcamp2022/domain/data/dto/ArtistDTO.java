@@ -3,12 +3,14 @@ package com.ciandt.summit.bootcamp2022.domain.data.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class ArtistDTO {
+public class ArtistDTO implements Serializable {
 
     @Schema(description = "Id do Artista")
     private String id;
