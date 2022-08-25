@@ -23,7 +23,7 @@ public class BeanConfiguration {
         Config config = new Config();
 
         MapConfig mapConfig = new MapConfig();
-        mapConfig.setTimeToLiveSeconds(6000);
+        mapConfig.setTimeToLiveSeconds(600);
         config.getMapConfigs().put("DataDTO", mapConfig);
         return config;
     }
