@@ -28,6 +28,7 @@ public class MusicServiceImpl implements MusicServicePort {
             log.info("Log de Operação inválida com os parâmetros '"+searchName+"'. A busca precisa ter no mínimo 3 caracteres, em: " + Calendar.getInstance().getTime() + ".");
             throw new LengthValidationException("Operação inválida com os parâmetros '"+searchName+"'. A busca precisa ter no mínimo 3 caracteres.");
         }
+
         List<MusicDTO> artistEntityAndMusicEntityListOrderByName =
                 this.musicRepositoryPort.findArtistEntityAndMusicEntityListOrderByName(searchName);
 

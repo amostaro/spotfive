@@ -1,4 +1,4 @@
-package com.ciandt.summit.bootcamp2022.domain.service.exception;
+package com.ciandt.token.provider.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,24 +28,6 @@ public class GlobalExceptionHandler {
         body.put("status", HttpStatus.BAD_REQUEST.value());
         body.put("errors", errors);
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(LengthValidationException.class)
-    public ResponseEntity<Object> handleException(LengthValidationException exception) {
-        Map<String, Object> body = new LinkedHashMap<>();
-        body.put("timestamp", new Date());
-        body.put("status", HttpStatus.BAD_REQUEST.value());
-        body.put("message", exception.getMessage());
-        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(ArtistOrMusicNotFoundException.class)
-    public ResponseEntity<Object> handleException(ArtistOrMusicNotFoundException exception) {
-        Map<String, Object> body = new LinkedHashMap<>();
-        body.put("timestamp", new Date());
-        body.put("status", HttpStatus.NO_CONTENT.value());
-        body.put("message", exception.getMessage());
-        return new ResponseEntity<>(body, HttpStatus.NO_CONTENT);
     }
 
     @ExceptionHandler(RequestNotAuthorizedException.class)
