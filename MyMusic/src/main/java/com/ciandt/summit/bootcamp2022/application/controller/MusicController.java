@@ -9,9 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashSet;
-import java.util.List;
-
+@ApiResponses(
+        value = {
+                @ApiResponse(responseCode = "200", description = "Requisição feita com sucesso"),
+                @ApiResponse(responseCode = "401", description = "Você não tem permissão para acessar este recurso"),
+                @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção"),
+                @ApiResponse(responseCode = "204", description = "Não foi encontrado nenhum dado")
+        }
+)
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/musicas")
@@ -19,12 +24,11 @@ public class MusicController {
 
     private final MusicServicePort musicServicePort;
 
+    @Operation(description = "Realiza a busca de todos os artistas ou músicas com os parâmetros informados")
     @GetMapping
-    public DataDTO get(@RequestParam String filtro) {
-        List<MusicDTO> allByNameLikeIgnoreCase = musicServicePort.findAllByNameLikeIgnoreCase(filtro);
-        DataDTO dataDTO = new DataDTO();
-        dataDTO.setData(new HashSet<>(allByNameLikeIgnoreCase));
-        return dataDTO;
+    public DataDTO getArtistOrMusic(@RequestParam String filtro) throws LengthValidationException,ArtistOrMusicNotFoundException {
+        return musicServicePort.findAllByNameLikeIgnoreCase(filtro);
     }
+
 
 }

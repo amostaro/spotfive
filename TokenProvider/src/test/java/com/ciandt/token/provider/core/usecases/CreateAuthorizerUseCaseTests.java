@@ -1,5 +1,6 @@
 package com.ciandt.token.provider.core.usecases;
 
+import com.ciandt.token.provider.exceptions.RequestNotAuthorizedException;
 import com.ciandt.token.provider.services.EncryptServices;
 import org.apache.tomcat.jni.Local;
 import org.junit.jupiter.api.Test;
@@ -33,7 +34,7 @@ public class CreateAuthorizerUseCaseTests {
     }
 
     @Test
-    public void shouldExecuteWhenNotExpiredTokenThenReturnsOk() {
+    public void shouldExecuteWhenNotExpiredTokenThenReturnsOk() throws RequestNotAuthorizedException {
         Mockito.when(encryptServices.decrypt("user", "12345")).thenReturn(LocalDateTime.now().toString());
         final String token = createAuthorizerUseCase.execute("user", "12345");
 

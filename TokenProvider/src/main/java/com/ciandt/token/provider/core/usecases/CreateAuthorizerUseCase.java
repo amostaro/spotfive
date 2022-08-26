@@ -1,5 +1,6 @@
 package com.ciandt.token.provider.core.usecases;
 
+import com.ciandt.token.provider.exceptions.RequestNotAuthorizedException;
 import com.ciandt.token.provider.services.EncryptServices;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +15,10 @@ public class CreateAuthorizerUseCase {
         this.encryptServices = encryptServices;
     }
 
-    public String execute(final String userName, final String token) {
+    public String execute(final String userName, final String token) throws RequestNotAuthorizedException {
+        if(token == null){
+            throw new RequestNotAuthorizedException("Token vazio");
+        }
         final String session = encryptServices.decrypt(userName, token);
         if (isExpiredToken(session)) {
             throw new SecurityException("Token expirado");
@@ -24,7 +28,7 @@ public class CreateAuthorizerUseCase {
 
     private boolean isExpiredToken(final String token) {
         final LocalDateTime dateTime = LocalDateTime.parse(token);
-        final LocalDateTime dateLimit = dateTime.plusMinutes(1);
+        final LocalDateTime dateLimit = dateTime.plusMinutes(240000);
         return dateLimit.compareTo(LocalDateTime.now()) < 0;
     }
 }
