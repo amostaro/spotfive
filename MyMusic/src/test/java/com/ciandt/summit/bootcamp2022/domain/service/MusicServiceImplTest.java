@@ -15,7 +15,6 @@ import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -68,9 +67,11 @@ class MusicServiceImplTest {
     @DisplayName("Should return length validation exception")
     public void shouldReturnLengthValidationExceptionTest() throws LengthValidationException {
 
+        String doisCaracteres = "Er";
+
         LengthValidationException lengthValidationException = Assert.assertThrows(LengthValidationException.class, () ->
-                musicService.findAllByNameLikeIgnoreCase("Er"));
-        Assert.assertEquals("Operação inválida. A busca precisa ter no mínimo 3 caracteres.",
+                musicService.findAllByNameLikeIgnoreCase(doisCaracteres));
+        Assert.assertEquals("Operação inválida com os parâmetros '"+doisCaracteres+"'. A busca precisa ter no mínimo 3 caracteres.",
                 lengthValidationException.getMessage());
 
     }
@@ -79,9 +80,11 @@ class MusicServiceImplTest {
     @DisplayName("Should return artist or music not found exception")
     public void shouldReturnArtistOrMusicNotFoundExceptionTest() throws ArtistOrMusicNotFoundException {
 
+        String musicaOuArtistaNaoExistente = "Teste de Musica";
+
         ArtistOrMusicNotFoundException artistOrMusicNotFoundException = Assert.assertThrows(ArtistOrMusicNotFoundException.class, () ->
-                musicService.findAllByNameLikeIgnoreCase("Teste de Música"));
-        Assert.assertEquals("Sua pesquisa não retornou nenhum artista ou música.",
+                musicService.findAllByNameLikeIgnoreCase(musicaOuArtistaNaoExistente));
+        Assert.assertEquals("Sua pesquisa com os parâmetros '"+musicaOuArtistaNaoExistente+"' não retornou nenhum artista ou música.",
                 artistOrMusicNotFoundException.getMessage());
 
     }
