@@ -30,7 +30,7 @@ public class MusicController {
 
     @Operation(description = "Realiza a busca de todos os artistas ou músicas com os parâmetros informados")
     @GetMapping
-    public DataDTO getArtistOrMusic(@RequestParam String filtro) throws LengthValidationException,ArtistOrMusicNotFoundException {
+    public DataDTO getArtistOrMusic(@RequestParam String filtro) throws LengthValidationException, ArtistOrMusicNotFoundException {
         return musicServicePort.findAllByNameLikeIgnoreCase(filtro);
     }
 
