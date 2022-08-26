@@ -8,10 +8,7 @@ import com.ciandt.summit.bootcamp2022.domain.service.exception.ArtistOrMusicNotF
 import com.ciandt.summit.bootcamp2022.domain.service.exception.LengthValidationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 
-import java.awt.print.Pageable;
 import java.util.*;
 import java.util.stream.Collectors;
 
