@@ -28,13 +28,9 @@ public class TokenAuthorizerController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> createTokenAuthorizer(@RequestBody CreateAuthorizerRequest createAuthorizerRequest) throws RequestNotAuthorizedException {
-        CreateAuthorizerRequestData data = createAuthorizerRequest.getData();
-        if(data.getToken() == null){
-            throw new RequestNotAuthorizedException("TOken invalido");
-        }
         try {
+            CreateAuthorizerRequestData data = createAuthorizerRequest.getData();
             logger.info("Recebido requisição para geração de token: "+ data.getName());
-
             String token = createAuthorizerUseCase.execute(data.getName(), data.getToken());
             logger.info("Token validado com sucesso");
             return new ResponseEntity<>(token, HttpStatus.CREATED);

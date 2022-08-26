@@ -23,24 +23,28 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     public TokenAuthenticationFilter(AuthenticationApi authenticationApi) {
         this.authenticationApi = authenticationApi;
     }
+
     public void doFilterInternal(HttpServletRequest request,
                                  HttpServletResponse response,
                                  FilterChain filterChain) throws IOException {
+
         String token = getTokenFromHeader(request);
+        String nomeUsuario = "teste";
 
         CreateAuthorizerRequestData createAuthorizerRequestData = new CreateAuthorizerRequestData();
-        String nomeUsuario = "teste";
         createAuthorizerRequestData.setName(nomeUsuario);
         createAuthorizerRequestData.setToken(token);
+
         CreateAuthorizerRequest data = new CreateAuthorizerRequest();
         data.setData(createAuthorizerRequestData);
+
         try {
             authenticationApi.isValidToken(data);
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                     new UsernamePasswordAuthenticationToken(nomeUsuario, null, null);
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             filterChain.doFilter(request, response);
-        }catch (Exception e){
+        } catch (Exception e) {
             (response).sendError(HttpServletResponse.SC_UNAUTHORIZED, "The token is not valid.");
         }
     }
@@ -50,7 +54,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         if (token == null) {
             return null;
         }
-        return token.replace(BEARER, ""); // "Bearer "21414124 -> 21414124
+        return token.replace(BEARER, "");
     }
 
 
