@@ -1,20 +1,22 @@
 package com.ciandt.summit.bootcamp2022.infrastructure.configuration.feign;
 
-import feign.Headers;
+
+import com.ciandt.summit.bootcamp2022.domain.service.exception.RequestNotAuthorizedException;
+import com.ciandt.summit.bootcamp2022.infrastructure.configuration.security.dto.CreateAuthorizerRequest;
 import feign.RequestLine;
-import org.springframework.cloud.netflix.feign.FeignClient;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.aspectj.lang.annotation.AfterThrowing;
+import org.hibernate.validator.internal.IgnoreForbiddenApisErrors;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.List;
-
-@FeignClient(value="token-autentication", url="localhost:8081/")
+@FeignClient(name ="token-autentication", url="localhost:8081")
 public interface AuthenticationApi {
 
-    @RequestLine("Post /api/v1/token")
+    @PostMapping("/api/v1/token")
     String getToken();
 
-    @RequestLine("Post /api/v1/token/authorizer")
-    String isValidToken();
+    @PostMapping("/api/v1/token/authorizer")
+    String isValidToken(CreateAuthorizerRequest createAuthorizerRequestData);
 
 
 }

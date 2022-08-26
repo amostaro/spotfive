@@ -3,6 +3,7 @@ package com.ciandt.summit.bootcamp2022.infrastructure.configuration;
 import com.ciandt.summit.bootcamp2022.domain.port.interfaces.MusicServicePort;
 import com.ciandt.summit.bootcamp2022.domain.port.repository.MusicRepositoryPort;
 import com.ciandt.summit.bootcamp2022.domain.service.MusicServiceImpl;
+import com.ciandt.summit.bootcamp2022.infrastructure.configuration.feign.AuthenticationApi;
 import com.hazelcast.config.Config;
 import com.hazelcast.config.MapConfig;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,7 @@ public class BeanConfiguration {
     MusicServicePort musicServicePort(MusicRepositoryPort musicRepositoryPort) {
         return new MusicServiceImpl(musicRepositoryPort);
     }
+
 
 
     @Bean
