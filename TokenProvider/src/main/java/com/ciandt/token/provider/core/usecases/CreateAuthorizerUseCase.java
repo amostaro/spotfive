@@ -15,11 +15,11 @@ public class CreateAuthorizerUseCase {
         this.encryptServices = encryptServices;
     }
 
-    public String execute(final String userName, final String token) throws RequestNotAuthorizedException {
+    public String execute(final String token) throws RequestNotAuthorizedException {
         if(token == null){
             throw new RequestNotAuthorizedException("Token vazio");
         }
-        final String session = encryptServices.decrypt(userName, token);
+        final String session = encryptServices.decrypt(token);
         if (isExpiredToken(session)) {
             throw new SecurityException("Token expirado");
         }

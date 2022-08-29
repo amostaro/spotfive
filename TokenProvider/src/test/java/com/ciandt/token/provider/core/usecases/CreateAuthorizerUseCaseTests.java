@@ -27,16 +27,16 @@ public class CreateAuthorizerUseCaseTests {
 
     @Test
     public void shouldExecuteWhenExpiredTokenThenThrowsSecurityException() {
-        Mockito.when(encryptServices.decrypt("user", "12345")).thenReturn(LocalDateTime.now().minusMinutes(50000L).toString());
-        final Throwable thrown = catchThrowable(() -> createAuthorizerUseCase.execute("user", "12345"));
+        Mockito.when(encryptServices.decrypt( "12345")).thenReturn(LocalDateTime.now().minusMinutes(50000L).toString());
+        final Throwable thrown = catchThrowable(() -> createAuthorizerUseCase.execute( "12345"));
 
         assertThat(thrown).isInstanceOf(SecurityException.class);
     }
 
     @Test
     public void shouldExecuteWhenNotExpiredTokenThenReturnsOk() throws RequestNotAuthorizedException {
-        Mockito.when(encryptServices.decrypt("user", "12345")).thenReturn(LocalDateTime.now().toString());
-        final String token = createAuthorizerUseCase.execute("user", "12345");
+        Mockito.when(encryptServices.decrypt( "12345")).thenReturn(LocalDateTime.now().toString());
+        final String token = createAuthorizerUseCase.execute( "12345");
 
         assertEquals("ok", token);
     }
