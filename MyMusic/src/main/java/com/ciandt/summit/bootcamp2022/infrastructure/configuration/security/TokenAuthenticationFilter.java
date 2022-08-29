@@ -29,10 +29,8 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
                                  FilterChain filterChain) throws IOException {
 
         String token = getTokenFromHeader(request);
-        String nomeUsuario = "teste";
 
         CreateAuthorizerRequestData createAuthorizerRequestData = new CreateAuthorizerRequestData();
-        createAuthorizerRequestData.setName(nomeUsuario);
         createAuthorizerRequestData.setToken(token);
 
         CreateAuthorizerRequest data = new CreateAuthorizerRequest();
@@ -41,7 +39,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         try {
             authenticationApi.isValidToken(data);
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                    new UsernamePasswordAuthenticationToken(nomeUsuario, null, null);
+                    new UsernamePasswordAuthenticationToken("Nome vindo do Banco", null, null);
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             filterChain.doFilter(request, response);
         } catch (Exception e) {
