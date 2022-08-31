@@ -60,7 +60,7 @@ class MusicServiceImplTest {
 
         DataDTO methodReturnDTO = musicService.findAllByNameLikeIgnoreCase(searchName);
 
-        Assert.assertEquals("hi", methodReturnDTO);
+        Assert.assertEquals(dataDTO, methodReturnDTO);
     }
 
     @Test
