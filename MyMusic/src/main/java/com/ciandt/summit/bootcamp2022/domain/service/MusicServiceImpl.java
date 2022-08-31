@@ -9,8 +9,9 @@ import com.ciandt.summit.bootcamp2022.domain.service.exception.LengthValidationE
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Calendar;
+import java.util.LinkedHashSet;
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -39,12 +40,8 @@ public class MusicServiceImpl implements MusicServicePort {
         }
 
         DataDTO dataDTO = new DataDTO();
-        dataDTO.setData(new HashSet<>(artistEntityAndMusicEntityListOrderByName));
-        Set<MusicDTO> collect = dataDTO.getData().stream()
-                .sorted(Comparator.comparing(MusicDTO::getName))
-                .sorted(Comparator.comparing(musicDTO -> musicDTO.getArtistEntity().getName()))
-                .collect(Collectors.toCollection(LinkedHashSet::new));
-        dataDTO.setData(collect);
+        dataDTO.setData(new LinkedHashSet<>(artistEntityAndMusicEntityListOrderByName));
+
         log.info("Busca com os parâmetros '"+searchName+"' finalizada com sucesso, em: " + Calendar.getInstance().getTime() + ".");
         return dataDTO;
     }
