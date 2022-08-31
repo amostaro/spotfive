@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public interface SpringMusicRepository extends JpaRepository<MusicEntity, String> {
 
-    @Query("SELECT m FROM Musicas m JOIN m.artistEntity ma WHERE ma.name LIKE %:name% OR m.name LIKE %:name%")
+    @Query("SELECT m FROM Musicas m JOIN m.artistEntity ma WHERE ma.name LIKE %:name% OR m.name LIKE %:name% ORDER BY ma.name, m.name")
     List<MusicEntity> findAllByNameLikeIgnoreCase(String name);
 
     Optional<MusicEntity> findById(String idMusic);
