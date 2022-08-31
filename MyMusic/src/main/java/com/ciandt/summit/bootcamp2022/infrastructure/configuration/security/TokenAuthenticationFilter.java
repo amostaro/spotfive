@@ -1,6 +1,5 @@
 package com.ciandt.summit.bootcamp2022.infrastructure.configuration.security;
 
-import com.ciandt.summit.bootcamp2022.infrastructure.configuration.feign.AuthenticationApi;
 import com.ciandt.summit.bootcamp2022.infrastructure.configuration.security.dto.CreateAuthorizerRequest;
 import com.ciandt.summit.bootcamp2022.infrastructure.configuration.security.dto.CreateAuthorizerRequestData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,15 +13,12 @@ import java.io.IOException;
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired
-    private AuthenticationApi authenticationApi;
-
-    @Autowired
     private ValidationToken validationToken;
 
     protected static final String BEARER = "Bearer ";
 
-    public TokenAuthenticationFilter(AuthenticationApi authenticationApi) {
-        this.authenticationApi = authenticationApi;
+    public TokenAuthenticationFilter(ValidationToken validationToken) {
+        this.validationToken = validationToken;
     }
 
     public void doFilterInternal(HttpServletRequest request,
