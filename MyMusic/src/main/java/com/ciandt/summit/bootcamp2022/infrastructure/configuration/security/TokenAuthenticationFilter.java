@@ -4,8 +4,6 @@ import com.ciandt.summit.bootcamp2022.infrastructure.configuration.feign.Authent
 import com.ciandt.summit.bootcamp2022.infrastructure.configuration.security.dto.CreateAuthorizerRequest;
 import com.ciandt.summit.bootcamp2022.infrastructure.configuration.security.dto.CreateAuthorizerRequestData;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -17,6 +15,9 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired
     private AuthenticationApi authenticationApi;
+
+    @Autowired
+    private ValidationToken validationToken;
 
     protected static final String BEARER = "Bearer ";
 
@@ -36,15 +37,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         CreateAuthorizerRequest data = new CreateAuthorizerRequest();
         data.setData(createAuthorizerRequestData);
 
-        try {
-            authenticationApi.isValidToken(data);
-            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                    new UsernamePasswordAuthenticationToken("Nome vindo do Banco", null, null);
-            SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-            filterChain.doFilter(request, response);
-        } catch (Exception e) {
-            (response).sendError(HttpServletResponse.SC_UNAUTHORIZED, "The token is not valid.");
-        }
+        validationToken.validationTokenMethod(request, response, filterChain, data);
     }
 
     private String getTokenFromHeader(HttpServletRequest request) {
