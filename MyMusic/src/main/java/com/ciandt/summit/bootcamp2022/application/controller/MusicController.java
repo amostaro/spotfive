@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/musicas")
 public class MusicController {
 
+
     private final MusicServicePort musicServicePort;
 
     @Operation(description = "Realiza a busca de todos os artistas ou músicas com os parâmetros informados")
