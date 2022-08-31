@@ -24,7 +24,6 @@ public class BeanConfiguration {
         MapConfig mapConfig = new MapConfig();
         mapConfig.setTimeToLiveSeconds(600);
         config.getMapConfigs().put("DataDTO", mapConfig);
-        config.getMapConfigs().put("musicPlaylist", mapConfig);
         return config;
     }
 
