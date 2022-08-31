@@ -1,6 +1,5 @@
 package com.ciandt.summit.bootcamp2022.infrastructure.configuration.security;
 
-import com.ciandt.summit.bootcamp2022.infrastructure.configuration.feign.AuthenticationApi;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -23,7 +22,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class SecurityConfiguration {
 
     @Autowired
-    private AuthenticationApi authenticationApi;
+    private ValidationToken validationToken;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -32,7 +31,7 @@ public class SecurityConfiguration {
                 .csrf().disable()
                 .authorizeHttpRequests()
                                 .anyRequest().authenticated();
-        http.addFilterBefore(new TokenAuthenticationFilter(authenticationApi), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(new TokenAuthenticationFilter(validationToken), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 

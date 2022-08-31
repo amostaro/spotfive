@@ -14,7 +14,7 @@ public class EncryptServicesTests {
         final EncryptServices encryptServices = new EncryptServices();
         final String token = encryptServices.encrypt("user");
 
-        final String decryptValue = encryptServices.decrypt("user", token);
+        final String decryptValue = encryptServices.decrypt(token);
         assertEquals(LocalDateTime.parse(decryptValue).truncatedTo(ChronoUnit.MINUTES), LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
     }
 }

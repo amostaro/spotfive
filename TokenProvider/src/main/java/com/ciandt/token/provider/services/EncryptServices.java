@@ -9,22 +9,20 @@ import java.time.LocalDateTime;
 @Service
 public class EncryptServices {
 
+    private StandardPBEStringEncryptor encryptor = new StandardPBEStringEncryptor();
+
     public String encrypt(final String userName) {
-        StandardPBEStringEncryptor encryptor = createEncryptor(userName);
-
+        encryptor = new StandardPBEStringEncryptor();
+        encryptor = createEncryptor(userName);
         final String dateTime = LocalDateTime.now().toString();
-
         return encryptor.encrypt(dateTime);
     }
 
-    public String decrypt(final String userName, final String token) {
-        StandardPBEStringEncryptor encryptor = createEncryptor(userName);
-
+    public String decrypt(final String token) {
         return encryptor.decrypt(token);
     }
 
     private StandardPBEStringEncryptor createEncryptor(String userName) {
-        StandardPBEStringEncryptor encryptor = new StandardPBEStringEncryptor();
         encryptor.setAlgorithm("PBEWithMD5AndDES");
         encryptor.setIvGenerator(new RandomIvGenerator());
         encryptor.setPassword(userName);

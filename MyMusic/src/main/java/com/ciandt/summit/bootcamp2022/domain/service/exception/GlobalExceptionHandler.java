@@ -48,12 +48,21 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(body, HttpStatus.NO_CONTENT);
     }
 
-    @ExceptionHandler(RequestNotAuthorizedException.class)
-    public ResponseEntity<Object> handleException(RequestNotAuthorizedException exception) {
+    @ExceptionHandler(PlaylistNotFoundException.class)
+    public ResponseEntity<Object> handleException(PlaylistNotFoundException exception) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", new Date());
-        body.put("status", HttpStatus.UNAUTHORIZED.value());
+        body.put("status", HttpStatus.BAD_REQUEST.value());
         body.put("message", exception.getMessage());
-        return new ResponseEntity<>(body, HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(MusicNotFoundException.class)
+    public ResponseEntity<Object> handleException(MusicNotFoundException exception) {
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", new Date());
+        body.put("status", HttpStatus.BAD_REQUEST.value());
+        body.put("message", exception.getMessage());
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 }
