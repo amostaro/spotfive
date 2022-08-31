@@ -1,11 +1,13 @@
 package com.ciandt.summit.bootcamp2022.domain.data.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -28,5 +30,13 @@ public class MusicEntity implements Serializable{
 
     @Column(name = "Id", insertable = false, updatable = false)
     private String artistId;
+
+    @ManyToMany
+    @JsonProperty(value = "playlistMusic")
+    @JoinTable(name = "PlaylistMusicas",
+            joinColumns = @JoinColumn(name = "MusicId", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "PlaylistId", referencedColumnName = "id"))
+    @JsonIgnore
+    private Set<PlaylistEntity> playlistEntityList;
 
 }
