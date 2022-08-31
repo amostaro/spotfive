@@ -17,10 +17,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/playlists") //verificar URL
 public class PlaylistController {
 
-    private final PlaylistServicePort playlistServicePort;
-
-    @PutMapping()
-    public ResponseEntity<String> salvaMusic(@RequestParam String idMusica, String idPlaylist) throws MusicNotFoundException, PlaylistNotFoundException {
-        return new ResponseEntity<>(playlistServicePort.saveMusicInPlaylist(idPlaylist,idMusica), HttpStatus.CREATED);
-    }
 }
