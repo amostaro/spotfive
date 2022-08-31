@@ -23,11 +23,11 @@ public class PlaylistEntity {
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "playlistEntity", cascade = CascadeType.ALL)
     private Set<UserEntity> userEntityList;
 
-    @ManyToMany
-    @JsonProperty(value = "playlistMusic")
-    @JoinTable(name = "PlaylistMusicas",
-    joinColumns = @JoinColumn(name = "PlaylistId", referencedColumnName = "id"),
-    inverseJoinColumns = @JoinColumn(name = "MusicaId", referencedColumnName = "id"))
     @JsonIgnore
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JsonProperty(value = "playlistMusic")
+    @JoinTable(name = "Playlistmusicas",
+    joinColumns = @JoinColumn(name = "Playlistid", referencedColumnName = "id"),
+    inverseJoinColumns = @JoinColumn(name = "Musicaid", referencedColumnName = "id"))
     private Set<MusicEntity> musicEntityList;
 }

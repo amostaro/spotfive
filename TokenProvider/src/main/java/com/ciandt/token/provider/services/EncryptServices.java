@@ -12,6 +12,7 @@ public class EncryptServices {
     private StandardPBEStringEncryptor encryptor = new StandardPBEStringEncryptor();
 
     public String encrypt(final String userName) {
+        encryptor = new StandardPBEStringEncryptor();
         encryptor = createEncryptor(userName);
         final String dateTime = LocalDateTime.now().toString();
         return encryptor.encrypt(dateTime);

@@ -25,6 +25,6 @@ public class UserEntity {
     @JoinColumn(name = "playlistid", referencedColumnName = "Id")
     private PlaylistEntity playlistEntity;
 
-    @Column(name = "Id", insertable = false, updatable = false)
+    @Column(name = "playlistid", insertable = false, updatable = false)
     private String playlistId;
 }
