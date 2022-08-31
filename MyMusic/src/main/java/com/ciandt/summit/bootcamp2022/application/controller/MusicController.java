@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
                 @ApiResponse(responseCode = "204", description = "Não foi encontrado nenhum dado")
         }
 )
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/musicas")
