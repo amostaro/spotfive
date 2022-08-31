@@ -1,6 +1,5 @@
 package com.ciandt.summit.bootcamp2022.domain.data.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -29,6 +28,6 @@ public class PlaylistEntity {
     @JoinTable(name = "PlaylistMusicas",
     joinColumns = @JoinColumn(name = "PlaylistId", referencedColumnName = "id"),
     inverseJoinColumns = @JoinColumn(name = "MusicaId", referencedColumnName = "id"))
-    @JsonBackReference
+    @JsonIgnore
     private Set<MusicEntity> musicEntityList;
 }
