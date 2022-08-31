@@ -6,7 +6,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @FeignClient(name ="token-autentication", url="localhost:8081")
-public interface AuthenticationApi {
+public interface AuthenticationApiIntegration {
 
     @PostMapping("/api/v1/token")
     String getToken();

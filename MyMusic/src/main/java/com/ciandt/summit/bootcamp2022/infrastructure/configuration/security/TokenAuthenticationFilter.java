@@ -1,11 +1,8 @@
 package com.ciandt.summit.bootcamp2022.infrastructure.configuration.security;
 
-import com.ciandt.summit.bootcamp2022.infrastructure.configuration.feign.AuthenticationApi;
 import com.ciandt.summit.bootcamp2022.infrastructure.configuration.security.dto.CreateAuthorizerRequest;
 import com.ciandt.summit.bootcamp2022.infrastructure.configuration.security.dto.CreateAuthorizerRequestData;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -16,12 +13,12 @@ import java.io.IOException;
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired
-    private AuthenticationApi authenticationApi;
+    private ValidationToken validationToken;
 
     protected static final String BEARER = "Bearer ";
 
-    public TokenAuthenticationFilter(AuthenticationApi authenticationApi) {
-        this.authenticationApi = authenticationApi;
+    public TokenAuthenticationFilter(ValidationToken validationToken) {
+        this.validationToken = validationToken;
     }
 
     public void doFilterInternal(HttpServletRequest request,
@@ -36,15 +33,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         CreateAuthorizerRequest data = new CreateAuthorizerRequest();
         data.setData(createAuthorizerRequestData);
 
-        try {
-            authenticationApi.isValidToken(data);
-            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                    new UsernamePasswordAuthenticationToken("Nome vindo do Banco", null, null);
-            SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-            filterChain.doFilter(request, response);
-        } catch (Exception e) {
-            (response).sendError(HttpServletResponse.SC_UNAUTHORIZED, "The token is not valid.");
-        }
+        validationToken.validationTokenMethod(request, response, filterChain, data);
     }
 
     private String getTokenFromHeader(HttpServletRequest request) {
