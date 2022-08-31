@@ -28,7 +28,6 @@ public class PlaylistServiceImpl implements PlaylistServicePort {
         log.info("Buscando PlayList");
         PlaylistEntity playlistEntity = playlistRepositoryPort.findById(idPlaylist);
 
-
         MusicEntity musicEntity = musicRepositoryPort.findById(idMusic);
         log.info("Buscando Musica");
 

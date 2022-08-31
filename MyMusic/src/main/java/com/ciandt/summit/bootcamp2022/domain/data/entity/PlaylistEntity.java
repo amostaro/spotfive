@@ -27,7 +27,7 @@ public class PlaylistEntity {
     @ManyToMany(cascade = CascadeType.ALL)
     @JsonProperty(value = "playlistMusic")
     @JoinTable(name = "Playlistmusicas",
-    joinColumns = @JoinColumn(name = "Playlistid", referencedColumnName = "id"),
-    inverseJoinColumns = @JoinColumn(name = "Musicaid", referencedColumnName = "id"))
+    joinColumns = @JoinColumn(name = "Playlistid", referencedColumnName = "Id"),
+    inverseJoinColumns = @JoinColumn(name = "Musicaid", referencedColumnName = "Id"))
     private Set<MusicEntity> musicEntityList;
 }
