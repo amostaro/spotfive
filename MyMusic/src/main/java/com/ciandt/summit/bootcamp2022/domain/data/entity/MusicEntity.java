@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.context.annotation.Primary;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -25,18 +26,18 @@ public class MusicEntity implements Serializable{
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "artistaid", referencedColumnName = "Id")
+    @JoinColumn(name = "artistaid", referencedColumnName = "id")
     private ArtistEntity artistEntity;
 
-    @Column(name = "Id", insertable = false, updatable = false)
+    @Column(name = "artistaid", insertable = false, updatable = false)
     private String artistId;
 
-    @ManyToMany
-    @JsonProperty(value = "playlistMusic")
-    @JoinTable(name = "PlaylistMusicas",
-            joinColumns = @JoinColumn(name = "MusicId", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "PlaylistId", referencedColumnName = "id"))
     @JsonIgnore
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JsonProperty(value = "playlistMusic")
+    @JoinTable(name = "Playlistmusicas",
+            joinColumns = @JoinColumn(name = "Musicid", referencedColumnName = "Id"),
+            inverseJoinColumns = @JoinColumn(name = "Playlistid", referencedColumnName = "Id"))
     private Set<PlaylistEntity> playlistEntityList;
 
 }
