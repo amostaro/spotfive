@@ -67,13 +67,14 @@ class MusicServiceImplTest {
     @DisplayName("Should return length validation exception")
     public void shouldReturnLengthValidationExceptionTest() throws LengthValidationException {
 
-        String doisCaracteres = "Er";
+        String umCaracter = "E";
 
         LengthValidationException lengthValidationException = Assert.assertThrows(LengthValidationException.class, () ->
-                musicService.findAllByNameLikeIgnoreCase(doisCaracteres));
-        Assert.assertEquals("Operação inválida com os parâmetros '"+doisCaracteres+"'. A busca precisa ter no mínimo 3 caracteres.",
-                lengthValidationException.getMessage());
+                musicService.findAllByNameLikeIgnoreCase(umCaracter));
 
+        String expectedMessage = "Operação inválida com os parâmetros buscados. A pesquisa precisa conter no mínimo 2 caracteres.";
+
+        Assert.assertEquals(expectedMessage, lengthValidationException.getMessage());
     }
 
     @Test
@@ -84,9 +85,10 @@ class MusicServiceImplTest {
 
         ArtistOrMusicNotFoundException artistOrMusicNotFoundException = Assert.assertThrows(ArtistOrMusicNotFoundException.class, () ->
                 musicService.findAllByNameLikeIgnoreCase(musicaOuArtistaNaoExistente));
-        Assert.assertEquals("Sua pesquisa com os parâmetros '"+musicaOuArtistaNaoExistente+"' não retornou nenhum artista ou música.",
-                artistOrMusicNotFoundException.getMessage());
 
+        String expectedMessage = "Sua pesquisa com os parâmetros buscados não retornou nenhum artista ou música.";
+
+        Assert.assertEquals(expectedMessage, artistOrMusicNotFoundException.getMessage());
     }
 
     private static void getArtistDTO(MusicDTO musicDTO) {
