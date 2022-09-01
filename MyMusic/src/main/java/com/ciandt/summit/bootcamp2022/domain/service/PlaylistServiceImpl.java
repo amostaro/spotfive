@@ -33,28 +33,21 @@ public class PlaylistServiceImpl implements PlaylistServicePort {
         playlistEntity.getMusicEntityList().add(musicEntity);
 
         playlistRepositoryPort.savePlaylist(playlistEntity);
+
         log.info("Processo finalizado.");
         log.info("Música '"+idMusic+"' adicionada à playlist '" +idPlaylist+ "' com sucesso em: " + Calendar.getInstance().getTime()+ ".");
 
         return "Música adicionada à playlist com sucesso!";
     }
 
-    private MusicEntity verifyIfMusicExists(String idMusic) throws MusicNotFoundException {
-        MusicEntity musicEntity = musicRepositoryPort.findById(idMusic)
-                .orElseThrow(() -> new MusicNotFoundException("Música não encontrada na base de dados."));
-                
-        log.info("Processo finalizado com falha.");
-        log.info("Música '"+idMusic+"' não encontrada em: " + Calendar.getInstance().getTime()+ ".");
-        return musicEntity;
+    public MusicEntity verifyIfMusicExists(String idMusic) throws MusicNotFoundException {
+        return musicRepositoryPort.findById(idMusic)
+                .orElseThrow(MusicNotFoundException::new);
     }
 
-    private PlaylistEntity verifyIfPlaylistExists(String idPlaylist) throws PlaylistNotFoundException {
-        PlaylistEntity playlistEntity = playlistRepositoryPort.findById(idPlaylist)
-                .orElseThrow(() -> new PlaylistNotFoundException("Playlist não encontrada na base de dados."));
-        
-        log.info("Processo finalizado com falha.");
-        log.info("Playlist '"+idPlaylist+"' não encontrada em: " + Calendar.getInstance().getTime()+ ".");
-        return playlistEntity;
+    public PlaylistEntity verifyIfPlaylistExists(String idPlaylist) throws PlaylistNotFoundException {
+        return playlistRepositoryPort.findById(idPlaylist)
+                .orElseThrow(PlaylistNotFoundException::new);
     }
 
 }
