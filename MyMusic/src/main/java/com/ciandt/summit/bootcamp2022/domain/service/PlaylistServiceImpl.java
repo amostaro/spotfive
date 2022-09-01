@@ -21,21 +21,40 @@ public class PlaylistServiceImpl implements PlaylistServicePort {
 
     @Override
     public String saveMusicInPlaylist(String idPlaylist, String idMusic) throws PlaylistNotFoundException, MusicNotFoundException {
+
         log.info("Iniciando processo de adição de uma música em uma playlist...");
 
         log.info("Busca da playlist '"+idPlaylist+"' iniciada em: " + Calendar.getInstance().getTime()+ ".");
-        PlaylistEntity playlistEntity = playlistRepositoryPort.findById(idPlaylist);
+        PlaylistEntity playlistEntity = verifyIfPlaylistExists(idPlaylist);
 
         log.info("Busca da música '"+idMusic+"' iniciada em: " + Calendar.getInstance().getTime()+ ".");
-        MusicEntity musicEntity = musicRepositoryPort.findById(idMusic);
+        MusicEntity musicEntity = verifyIfMusicExists(idMusic);
 
         playlistEntity.getMusicEntityList().add(musicEntity);
 
-        playlistRepositoryPort.saveMusicInPlaylist(playlistEntity);
+        playlistRepositoryPort.savePlaylist(playlistEntity);
         log.info("Processo finalizado.");
         log.info("Música '"+idMusic+"' adicionada à playlist '" +idPlaylist+ "' com sucesso em: " + Calendar.getInstance().getTime()+ ".");
 
         return "Música adicionada à playlist com sucesso!";
+    }
+
+    private MusicEntity verifyIfMusicExists(String idMusic) throws MusicNotFoundException {
+        MusicEntity musicEntity = musicRepositoryPort.findById(idMusic)
+                .orElseThrow(() -> new MusicNotFoundException("Música não encontrada na base de dados."));
+                
+        log.info("Processo finalizado com falha.");
+        log.info("Música '"+idMusic+"' não encontrada em: " + Calendar.getInstance().getTime()+ ".");
+        return musicEntity;
+    }
+
+    private PlaylistEntity verifyIfPlaylistExists(String idPlaylist) throws PlaylistNotFoundException {
+        PlaylistEntity playlistEntity = playlistRepositoryPort.findById(idPlaylist)
+                .orElseThrow(() -> new PlaylistNotFoundException("Playlist não encontrada na base de dados."));
+        
+        log.info("Processo finalizado com falha.");
+        log.info("Playlist '"+idPlaylist+"' não encontrada em: " + Calendar.getInstance().getTime()+ ".");
+        return playlistEntity;
     }
 
 }
