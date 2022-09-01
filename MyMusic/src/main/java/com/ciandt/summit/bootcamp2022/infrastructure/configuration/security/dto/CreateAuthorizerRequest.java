@@ -1,8 +1,10 @@
 package com.ciandt.summit.bootcamp2022.infrastructure.configuration.security.dto;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Setter
+@Getter
 public class CreateAuthorizerRequest {
 
     private CreateAuthorizerRequestData data;
