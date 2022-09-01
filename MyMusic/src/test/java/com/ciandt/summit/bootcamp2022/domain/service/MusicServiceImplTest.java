@@ -3,16 +3,17 @@ package com.ciandt.summit.bootcamp2022.domain.service;
 import com.ciandt.summit.bootcamp2022.domain.data.dto.ArtistDTO;
 import com.ciandt.summit.bootcamp2022.domain.data.dto.DataDTO;
 import com.ciandt.summit.bootcamp2022.domain.data.dto.MusicDTO;
+import com.ciandt.summit.bootcamp2022.domain.data.entity.MusicEntity;
 import com.ciandt.summit.bootcamp2022.domain.port.repository.MusicRepositoryPort;
 import com.ciandt.summit.bootcamp2022.domain.service.exception.ArtistOrMusicNotFoundException;
 import com.ciandt.summit.bootcamp2022.domain.service.exception.LengthValidationException;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
@@ -31,27 +32,32 @@ class MusicServiceImplTest {
 
     @Autowired
     private MusicServiceImpl musicService;
+
+    @MockBean
+    private ModelMapper modelMapper;
+
     @MockBean
     private MusicRepositoryPort musicRepositoryPort;
 
     @Test
     @DisplayName("Should return music list properly")
     public void shouldReturnMusicListProperlyTest() throws ArtistOrMusicNotFoundException, LengthValidationException {
+        List<MusicEntity> musicEntityList = new ArrayList<>();
         List<MusicDTO> musicDTOList = new ArrayList<>();
 
+        MusicEntity musicEntity = getMusicEntity();
         MusicDTO musicDTO = getMusicDTO();
         getArtistDTO(musicDTO);
 
         DataDTO dataDTO = getDataDTO();
         dataDTO.setData(Set.of(musicDTO));
 
+        musicEntityList.add(musicEntity);
         musicDTOList.add(musicDTO);
-
         String searchName = "Eric";
 
-        when(this.musicRepositoryPort.findArtistEntityAndMusicEntityListOrderByName(searchName))
-                .thenReturn(musicDTOList);
-
+        when(modelMapper.map(musicEntity, MusicDTO.class)).thenReturn(musicDTO);
+        when(this.musicRepositoryPort.findArtistEntityAndMusicEntityListOrderByName(searchName)).thenReturn(musicEntityList);
 
         DataDTO methodReturnDTO = musicService.findAllByNameLikeIgnoreCase(searchName);
 
@@ -93,8 +99,8 @@ class MusicServiceImplTest {
         musicDTO.setArtistEntity(artistDTO);
     }
 
-    private static MusicDTO getMusicDTO() {
-        MusicDTO musicDTO = new MusicDTO();
+    private static MusicEntity getMusicEntity() {
+        MusicEntity musicDTO = new MusicEntity();
         musicDTO.setId("349110e6-4124-49e7-b4c0-d8cbda1bf935");
         musicDTO.setName("When You Got A Good Friend");
         return musicDTO;
@@ -104,5 +110,12 @@ class MusicServiceImplTest {
         DataDTO dataDTO = new DataDTO();
         dataDTO.setData(Set.of(getMusicDTO()));
         return dataDTO;
+    }
+
+    private static MusicDTO getMusicDTO() {
+        MusicDTO musicDTO = new MusicDTO();
+        musicDTO.setId("349110e6-4124-49e7-b4c0-d8cbda1bf935");
+        musicDTO.setName("When You Got A Good Friend");
+        return musicDTO;
     }
 }
