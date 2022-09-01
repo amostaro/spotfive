@@ -70,7 +70,7 @@ class PlaylistServiceImplTest {
 
         var response = service.saveMusicInPlaylist(playlistId, musicId);
 
-        Assert.assertEquals("Salvo com sucesso", response);
+        Assert.assertEquals("Música adicionada à playlist com sucesso!", response);
     }
 
 

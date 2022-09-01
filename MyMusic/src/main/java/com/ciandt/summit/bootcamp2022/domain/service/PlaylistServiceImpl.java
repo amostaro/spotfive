@@ -9,6 +9,7 @@ import com.ciandt.summit.bootcamp2022.domain.service.exception.MusicNotFoundExce
 import com.ciandt.summit.bootcamp2022.domain.service.exception.PlaylistNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import java.util.Calendar;
 
 @Slf4j
@@ -31,7 +32,7 @@ public class PlaylistServiceImpl implements PlaylistServicePort {
 
         playlistEntity.getMusicEntityList().add(musicEntity);
 
-        playlistRepositoryPort.saveMusicInPlaylist(playlistEntity);
+        playlistRepositoryPort.savePlaylist(playlistEntity);
         log.info("Processo finalizado.");
         log.info("Música '"+idMusic+"' adicionada à playlist '" +idPlaylist+ "' com sucesso em: " + Calendar.getInstance().getTime()+ ".");
 
@@ -40,7 +41,7 @@ public class PlaylistServiceImpl implements PlaylistServicePort {
 
     private MusicEntity verifyIfMusicExists(String idMusic) throws MusicNotFoundException {
         MusicEntity musicEntity = musicRepositoryPort.findById(idMusic)
-                .orElseThrow(() -> new MusicNotFoundException("Musica não encontrada"));
+                .orElseThrow(() -> new MusicNotFoundException("Música não encontrada na base de dados."));
                 
         log.info("Processo finalizado com falha.");
         log.info("Música '"+idMusic+"' não encontrada em: " + Calendar.getInstance().getTime()+ ".");
@@ -49,10 +50,10 @@ public class PlaylistServiceImpl implements PlaylistServicePort {
 
     private PlaylistEntity verifyIfPlaylistExists(String idPlaylist) throws PlaylistNotFoundException {
         PlaylistEntity playlistEntity = playlistRepositoryPort.findById(idPlaylist)
-                .orElseThrow(() -> new PlaylistNotFoundException("PlayList não foi encontrada"));
+                .orElseThrow(() -> new PlaylistNotFoundException("Playlist não encontrada na base de dados."));
         
         log.info("Processo finalizado com falha.");
-        log.info("Playlist '"+idPlayList+"' não encontrada em: " + Calendar.getInstance().getTime()+ ".");
+        log.info("Playlist '"+idPlaylist+"' não encontrada em: " + Calendar.getInstance().getTime()+ ".");
         return playlistEntity;
     }
 
