@@ -5,7 +5,6 @@ import com.ciandt.summit.bootcamp2022.domain.port.repository.PlaylistRepositoryP
 import com.ciandt.summit.bootcamp2022.domain.service.exception.PlaylistNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
 import java.util.Optional;
 
 @RequiredArgsConstructor

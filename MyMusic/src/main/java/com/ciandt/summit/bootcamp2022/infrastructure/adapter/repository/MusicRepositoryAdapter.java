@@ -7,7 +7,6 @@ import com.ciandt.summit.bootcamp2022.domain.service.exception.MusicNotFoundExce
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
