@@ -27,7 +27,7 @@ public class MusicServiceImpl implements MusicServicePort {
 
         if (searchName.length() < 3) {
             log.info("Log de Operação inválida com os parâmetros '"+searchName+"'. A busca precisa ter no mínimo 3 caracteres, em: " + Calendar.getInstance().getTime() + ".");
-            throw new LengthValidationException("Operação inválida com os parâmetros '"+searchName+"'. A busca precisa ter no mínimo 3 caracteres.");
+            throw new LengthValidationException();
         }
 
         List<MusicDTO> artistEntityAndMusicEntityListOrderByName =
@@ -36,7 +36,7 @@ public class MusicServiceImpl implements MusicServicePort {
 
         if (artistEntityAndMusicEntityListOrderByName.isEmpty()) {
             log.info("Log de resultado de pesquisa: sua pesquisa com os parâmetros '"+searchName+"' não retornou nenhum artista ou música, em: " + Calendar.getInstance().getTime() + ".");
-            throw new ArtistOrMusicNotFoundException("Sua pesquisa com os parâmetros '"+searchName+"' não retornou nenhum artista ou música.");
+            throw new ArtistOrMusicNotFoundException();
         }
 
         DataDTO dataDTO = new DataDTO();

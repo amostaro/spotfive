@@ -41,7 +41,7 @@ public class PlaylistServiceImpl implements PlaylistServicePort {
 
     private MusicEntity verifyIfMusicExists(String idMusic) throws MusicNotFoundException {
         MusicEntity musicEntity = musicRepositoryPort.findById(idMusic)
-                .orElseThrow(() -> new MusicNotFoundException("Música não encontrada na base de dados."));
+                .orElseThrow(() -> new MusicNotFoundException());
                 
         log.info("Processo finalizado com falha.");
         log.info("Música '"+idMusic+"' não encontrada em: " + Calendar.getInstance().getTime()+ ".");
@@ -50,7 +50,7 @@ public class PlaylistServiceImpl implements PlaylistServicePort {
 
     private PlaylistEntity verifyIfPlaylistExists(String idPlaylist) throws PlaylistNotFoundException {
         PlaylistEntity playlistEntity = playlistRepositoryPort.findById(idPlaylist)
-                .orElseThrow(() -> new PlaylistNotFoundException("Playlist não encontrada na base de dados."));
+                .orElseThrow(() -> new PlaylistNotFoundException());
         
         log.info("Processo finalizado com falha.");
         log.info("Playlist '"+idPlaylist+"' não encontrada em: " + Calendar.getInstance().getTime()+ ".");
