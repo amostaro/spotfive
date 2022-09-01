@@ -67,12 +67,12 @@ class MusicServiceImplTest {
     @DisplayName("Should return length validation exception")
     public void shouldReturnLengthValidationExceptionTest() throws LengthValidationException {
 
-        String doisCaracteres = "Er";
+        String umCaracter = "E";
 
         LengthValidationException lengthValidationException = Assert.assertThrows(LengthValidationException.class, () ->
-                musicService.findAllByNameLikeIgnoreCase(doisCaracteres));
+                musicService.findAllByNameLikeIgnoreCase(umCaracter));
 
-        String expectedMessage = "Operação inválida com os parâmetros buscados. A pesquisa precisa conter no mínimo 3 caracteres.";
+        String expectedMessage = "Operação inválida com os parâmetros buscados. A pesquisa precisa conter no mínimo 2 caracteres.";
 
         Assert.assertEquals(expectedMessage, lengthValidationException.getMessage());
     }
