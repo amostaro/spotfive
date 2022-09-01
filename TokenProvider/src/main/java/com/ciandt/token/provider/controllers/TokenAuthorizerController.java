@@ -30,8 +30,8 @@ public class TokenAuthorizerController {
     public ResponseEntity<String> createTokenAuthorizer(@RequestBody CreateAuthorizerRequest createAuthorizerRequest) throws RequestNotAuthorizedException {
         try {
             CreateAuthorizerRequestData data = createAuthorizerRequest.getData();
-            logger.info("Recebido requisição para geração de token: "+ data.getName());
-            String token = createAuthorizerUseCase.execute(data.getName(), data.getToken());
+            logger.info("Recebido requisição para geração de token: ");
+            String token = createAuthorizerUseCase.execute(data.getToken());
             logger.info("Token validado com sucesso");
             return new ResponseEntity<>(token, HttpStatus.CREATED);
         } catch (SecurityException e) {
