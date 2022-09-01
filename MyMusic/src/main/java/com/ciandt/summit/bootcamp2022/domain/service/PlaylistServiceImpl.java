@@ -39,7 +39,7 @@ public class PlaylistServiceImpl implements PlaylistServicePort {
         return "Música adicionada à playlist com sucesso!";
     }
 
-    private MusicEntity verifyIfMusicExists(String idMusic) throws MusicNotFoundException {
+    public MusicEntity verifyIfMusicExists(String idMusic) throws MusicNotFoundException {
         MusicEntity musicEntity = musicRepositoryPort.findById(idMusic)
                 .orElseThrow(() -> new MusicNotFoundException());
                 
@@ -48,7 +48,7 @@ public class PlaylistServiceImpl implements PlaylistServicePort {
         return musicEntity;
     }
 
-    private PlaylistEntity verifyIfPlaylistExists(String idPlaylist) throws PlaylistNotFoundException {
+    public PlaylistEntity verifyIfPlaylistExists(String idPlaylist) throws PlaylistNotFoundException {
         PlaylistEntity playlistEntity = playlistRepositoryPort.findById(idPlaylist)
                 .orElseThrow(() -> new PlaylistNotFoundException());
         
