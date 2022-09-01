@@ -1,6 +1,5 @@
 package com.ciandt.summit.bootcamp2022.domain.service;
 
-import com.ciandt.summit.bootcamp2022.domain.data.dto.DataDTO;
 import com.ciandt.summit.bootcamp2022.domain.data.entity.MusicEntity;
 import com.ciandt.summit.bootcamp2022.domain.data.entity.PlaylistEntity;
 import com.ciandt.summit.bootcamp2022.domain.port.interfaces.PlaylistServicePort;
@@ -10,10 +9,6 @@ import com.ciandt.summit.bootcamp2022.domain.service.exception.MusicNotFoundExce
 import com.ciandt.summit.bootcamp2022.domain.service.exception.PlaylistNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
-
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -26,18 +21,30 @@ public class PlaylistServiceImpl implements PlaylistServicePort {
     public String saveMusicInPlaylist(String idPlaylist, String idMusic) throws PlaylistNotFoundException, MusicNotFoundException {
         log.info("Salvando musica na playlist");
         log.info("Buscando PlayList");
-        PlaylistEntity playlistEntity = playlistRepositoryPort.findById(idPlaylist);
+        PlaylistEntity playlistEntity = verifyIfPlaylistExists(idPlaylist);
 
-        MusicEntity musicEntity = musicRepositoryPort.findById(idMusic);
+        MusicEntity musicEntity = verifyIfMusicExists(idMusic);
         log.info("Buscando Musica");
 
         playlistEntity.getMusicEntityList().add(musicEntity);
         log.info("Pessoas buscadas com sucesso");
 
-        playlistRepositoryPort.saveMusicInPlaylist(playlistEntity);
+        playlistRepositoryPort.savePlaylist(playlistEntity);
         log.info("Musica salva com sucesso");
 
         return "Salvo com sucesso";
+    }
+
+    private MusicEntity verifyIfMusicExists(String idMusic) throws MusicNotFoundException {
+        MusicEntity musicEntity = musicRepositoryPort.findById(idMusic)
+                .orElseThrow(() -> new MusicNotFoundException("Musica não encontrada"));
+        return musicEntity;
+    }
+
+    private PlaylistEntity verifyIfPlaylistExists(String idPlaylist) throws PlaylistNotFoundException {
+        PlaylistEntity playlistEntity = playlistRepositoryPort.findById(idPlaylist)
+                .orElseThrow(() -> new PlaylistNotFoundException("PlayList não foi encontrada"));
+        return playlistEntity;
     }
 
 }

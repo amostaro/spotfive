@@ -6,18 +6,20 @@ import com.ciandt.summit.bootcamp2022.domain.service.exception.PlaylistNotFoundE
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Component
 public class PlaylistRepositoryAdapter implements PlaylistRepositoryPort {
 
     private final SpringPlaylistRepository springPlaylistRepository;
     @Override
-    public void saveMusicInPlaylist(PlaylistEntity playlistEntity) {
+    public void savePlaylist(PlaylistEntity playlistEntity) {
         springPlaylistRepository.save(playlistEntity);
     }
 
     @Override
-    public PlaylistEntity findById(String idPlayList) throws PlaylistNotFoundException {
-        return springPlaylistRepository.findById(idPlayList).orElseThrow(() -> new PlaylistNotFoundException("PlayList não foi encontrada"));
+    public Optional<PlaylistEntity> findById(String idPlayList) throws PlaylistNotFoundException {
+        return springPlaylistRepository.findById(idPlayList);
     }
 }
