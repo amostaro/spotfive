@@ -1,8 +1,15 @@
 package com.ciandt.summit.bootcamp2022.domain.service.exception;
 
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.Calendar;
+
+@Slf4j
 public class PlaylistNotFoundException extends Throwable {
-    private static String message = "Playlist não encontrada na base de dados.";
+    private static final String message = "Playlist não encontrada na base de dados.";
     public PlaylistNotFoundException() {
         super(message);
+        log.info("Processo finalizado com falha.");
+        log.info("Playlist não encontrada em: " + Calendar.getInstance().getTime()+ ".");
     }
 }
