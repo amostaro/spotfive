@@ -34,11 +34,6 @@ class MusicServiceImplTest {
     @MockBean
     private MusicRepositoryPort musicRepositoryPort;
 
-    @Before
-    public void init() {
-
-    }
-
     @Test
     @DisplayName("Should return music list properly")
     public void shouldReturnMusicListProperlyTest() throws ArtistOrMusicNotFoundException, LengthValidationException {
