@@ -10,7 +10,7 @@ public class MusicNotFoundException extends Throwable {
     private static final String message = "Música não encontrada na base de dados.";
     public MusicNotFoundException() {
         super(message);
-        log.info("Processo finalizado com falha.");
-        log.info("Música não encontrada em: " + Calendar.getInstance().getTime()+ ".");
+        log.error("Processo finalizado com falha.");
+        log.error("Música não encontrada em: " + Calendar.getInstance().getTime()+ ".");
     }
 }

@@ -9,7 +9,7 @@ public class PlaylistNotFoundException extends Throwable {
     private static final String message = "Playlist não encontrada na base de dados.";
     public PlaylistNotFoundException() {
         super(message);
-        log.info("Processo finalizado com falha.");
-        log.info("Playlist não encontrada em: " + Calendar.getInstance().getTime()+ ".");
+        log.error("Processo finalizado com falha.");
+        log.error("Playlist não encontrada em: " + Calendar.getInstance().getTime()+ ".");
     }
 }
