@@ -65,10 +65,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MusicNotInPlaylistException.class)
     public ResponseEntity<Object> handleException(MusicNotInPlaylistException exception) {
-        Map<String, Object> body = new LinkedHashMap<>();
-        body.put("timestamp", new Date());
-        body.put("status", HttpStatus.BAD_REQUEST.value());
-        body.put("message", exception.getMessage());
-        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+        return getObjectResponseEntity(exception.getMessage());
     }
 }

@@ -52,7 +52,7 @@ public class SqlDialect extends Dialect {
     }
 
     public String getIdentityColumnString() {
-        return "integer";
+        return INTEGER;
     }
 
     public String getIdentitySelectString() {

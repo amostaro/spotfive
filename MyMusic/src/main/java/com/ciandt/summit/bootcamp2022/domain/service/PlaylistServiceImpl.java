@@ -17,6 +17,7 @@ import java.util.Calendar;
 @RequiredArgsConstructor
 public class PlaylistServiceImpl implements PlaylistServicePort {
 
+    public static final String INICIADA_EM = "' iniciada em: ";
     private final PlaylistRepositoryPort playlistRepositoryPort;
     private final MusicRepositoryPort musicRepositoryPort;
 
@@ -25,10 +26,10 @@ public class PlaylistServiceImpl implements PlaylistServicePort {
 
         log.info("Iniciando processo de adição de uma música em uma playlist...");
 
-        log.info("Busca da playlist '"+idPlaylist+"' iniciada em: " + Calendar.getInstance().getTime()+ ".");
+        log.info("Busca da playlist '" + idPlaylist + INICIADA_EM + Calendar.getInstance().getTime() + ".");
         PlaylistEntity playlistEntity = verifyIfPlaylistExists(idPlaylist);
 
-        log.info("Busca da música '"+idMusic+"' iniciada em: " + Calendar.getInstance().getTime()+ ".");
+        log.info("Busca da música '" + idMusic + INICIADA_EM + Calendar.getInstance().getTime() + ".");
         MusicEntity musicEntity = verifyIfMusicExists(idMusic);
 
         playlistEntity.getMusicEntityList().add(musicEntity);
@@ -36,7 +37,7 @@ public class PlaylistServiceImpl implements PlaylistServicePort {
         playlistRepositoryPort.savePlaylist(playlistEntity);
 
         log.info("Processo finalizado.");
-        log.info("Música '"+idMusic+"' adicionada à playlist '" +idPlaylist+ "' com sucesso em: " + Calendar.getInstance().getTime()+ ".");
+        log.info("Música '" + idMusic + "' adicionada à playlist '" + idPlaylist + "' com sucesso em: " + Calendar.getInstance().getTime() + ".");
 
         return "Música adicionada à playlist com sucesso!";
     }
@@ -46,10 +47,10 @@ public class PlaylistServiceImpl implements PlaylistServicePort {
 
         log.info("Iniciando processo de remoção de uma música de uma playlist...");
 
-        log.info("Busca da playlist '"+idPlaylist+"' iniciada em: " + Calendar.getInstance().getTime()+ ".");
+        log.info("Busca da playlist '" + idPlaylist + INICIADA_EM + Calendar.getInstance().getTime() + ".");
         PlaylistEntity playlistEntity = verifyIfPlaylistExists(idPlaylist);
 
-        log.info("Busca da música '"+idMusic+"' iniciada em: " + Calendar.getInstance().getTime()+ ".");
+        log.info("Busca da música '" + idMusic + INICIADA_EM + Calendar.getInstance().getTime() + ".");
         MusicEntity musicEntity = verifyIfMusicExists(idMusic);
 
         verifyIfMusicExistsInPlaylist(playlistEntity, musicEntity);
@@ -59,7 +60,7 @@ public class PlaylistServiceImpl implements PlaylistServicePort {
         playlistRepositoryPort.savePlaylist(playlistEntity);
 
         log.info("Processo finalizado.");
-        log.info("Música '"+idMusic+"' removida da playlist '" +idPlaylist+ "' com sucesso em: " + Calendar.getInstance().getTime()+ ".");
+        log.info("Música '" + idMusic + "' removida da playlist '" + idPlaylist + "' com sucesso em: " + Calendar.getInstance().getTime() + ".");
 
     }
 
