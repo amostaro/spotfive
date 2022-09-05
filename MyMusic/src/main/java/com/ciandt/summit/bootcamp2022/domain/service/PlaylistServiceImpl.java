@@ -78,5 +78,4 @@ public class PlaylistServiceImpl implements PlaylistServicePort {
         return playlistRepositoryPort.findById(idPlaylist)
                 .orElseThrow(PlaylistNotFoundException::new);
     }
-
 }
