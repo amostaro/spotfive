@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -62,5 +61,14 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MusicNotFoundException.class)
     public ResponseEntity<Object> handleException(MusicNotFoundException exception) {
         return getObjectResponseEntity(exception.getMessage());
+    }
+
+    @ExceptionHandler(MusicNotInPlaylistException.class)
+    public ResponseEntity<Object> handleException(MusicNotInPlaylistException exception) {
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", new Date());
+        body.put("status", HttpStatus.BAD_REQUEST.value());
+        body.put("message", exception.getMessage());
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 }
