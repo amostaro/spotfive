@@ -6,6 +6,7 @@ import com.ciandt.summit.bootcamp2022.domain.port.interfaces.PlaylistServicePort
 import com.ciandt.summit.bootcamp2022.domain.port.repository.MusicRepositoryPort;
 import com.ciandt.summit.bootcamp2022.domain.port.repository.PlaylistRepositoryPort;
 import com.ciandt.summit.bootcamp2022.domain.service.exception.MusicNotFoundException;
+import com.ciandt.summit.bootcamp2022.domain.service.exception.MusicNotInPlaylistException;
 import com.ciandt.summit.bootcamp2022.domain.service.exception.PlaylistNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,6 +39,34 @@ public class PlaylistServiceImpl implements PlaylistServicePort {
         log.info("Música '"+idMusic+"' adicionada à playlist '" +idPlaylist+ "' com sucesso em: " + Calendar.getInstance().getTime()+ ".");
 
         return "Música adicionada à playlist com sucesso!";
+    }
+
+    @Override
+    public void deleteMusicInPlaylist(String idPlaylist, String idMusic) throws PlaylistNotFoundException, MusicNotFoundException, MusicNotInPlaylistException {
+
+        log.info("Iniciando processo de remoção de uma música de uma playlist...");
+
+        log.info("Busca da playlist '"+idPlaylist+"' iniciada em: " + Calendar.getInstance().getTime()+ ".");
+        PlaylistEntity playlistEntity = verifyIfPlaylistExists(idPlaylist);
+
+        log.info("Busca da música '"+idMusic+"' iniciada em: " + Calendar.getInstance().getTime()+ ".");
+        MusicEntity musicEntity = verifyIfMusicExists(idMusic);
+
+        verifyIfMusicExistsInPlaylist(playlistEntity, musicEntity);
+
+        playlistEntity.getMusicEntityList().remove(musicEntity);
+
+        playlistRepositoryPort.savePlaylist(playlistEntity);
+
+        log.info("Processo finalizado.");
+        log.info("Música '"+idMusic+"' removida da playlist '" +idPlaylist+ "' com sucesso em: " + Calendar.getInstance().getTime()+ ".");
+
+    }
+
+    private static void verifyIfMusicExistsInPlaylist(PlaylistEntity playlistEntity, MusicEntity musicEntity) throws MusicNotInPlaylistException {
+        if (!playlistEntity.getMusicEntityList().contains(musicEntity)) {
+            throw new MusicNotInPlaylistException();
+        }
     }
 
     public MusicEntity verifyIfMusicExists(String idMusic) throws MusicNotFoundException {
