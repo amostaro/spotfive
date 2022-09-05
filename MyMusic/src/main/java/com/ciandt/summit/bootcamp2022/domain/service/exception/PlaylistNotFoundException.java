@@ -5,10 +5,10 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.Calendar;
 
 @Slf4j
-public class PlaylistNotFoundException extends Throwable {
-    private static final String message = "Playlist não encontrada na base de dados.";
+public class PlaylistNotFoundException extends Exception {
+    private static final String MESSAGE = "Playlist não encontrada na base de dados.";
     public PlaylistNotFoundException() {
-        super(message);
+        super(MESSAGE);
         log.error("Processo finalizado com falha.");
         log.error("Playlist não encontrada em: " + Calendar.getInstance().getTime()+ ".");
     }
