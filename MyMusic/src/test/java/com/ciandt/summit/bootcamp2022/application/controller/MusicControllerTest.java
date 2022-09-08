@@ -1,5 +1,8 @@
 package com.ciandt.summit.bootcamp2022.application.controller;
 
+import com.ciandt.summit.bootcamp2022.domain.data.dto.ArtistDTO;
+import com.ciandt.summit.bootcamp2022.domain.data.dto.DataDTO;
+import com.ciandt.summit.bootcamp2022.domain.data.dto.MusicDTO;
 import com.ciandt.summit.bootcamp2022.domain.port.interfaces.MusicServicePort;
 import com.ciandt.summit.bootcamp2022.domain.service.exception.ArtistOrMusicNotFoundException;
 import com.ciandt.summit.bootcamp2022.domain.service.exception.LengthValidationException;
@@ -15,7 +18,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Set;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @ContextConfiguration(classes = {MusicController.class})
@@ -35,9 +41,37 @@ class MusicControllerTest {
     @DisplayName("Should return response entity ok for get artist or music")
     void shouldReturnResponseEntityOkForGetArtistOrMusic() throws LengthValidationException, ArtistOrMusicNotFoundException {
 
+        MusicDTO musicDTO = getMusicDTO();
+        getArtistDTO(musicDTO);
+
+        DataDTO dataDTO = getDataDTO();
+        dataDTO.setData(Set.of(musicDTO));
+
+        when(musicServicePort.findAllByNameLikeIgnoreCase(musicOrArtistExistTest)).thenReturn(dataDTO);
+
         var responseEntityDataDTO = musicController.getArtistOrMusic(musicOrArtistExistTest);
 
         assertEquals(HttpStatus.OK, responseEntityDataDTO.getStatusCode());
+    }
+
+    private static void getArtistDTO(MusicDTO musicDTO) {
+        ArtistDTO artistDTO = new ArtistDTO();
+        artistDTO.setId("44bee025-4006-4093-8d5d-f330764d9dd0");
+        artistDTO.setName("Eric Clapton");
+        musicDTO.setArtistEntity(artistDTO);
+    }
+
+    private static DataDTO getDataDTO() {
+        DataDTO dataDTO = new DataDTO();
+        dataDTO.setData(Set.of(getMusicDTO()));
+        return dataDTO;
+    }
+
+    private static MusicDTO getMusicDTO() {
+        MusicDTO musicDTO = new MusicDTO();
+        musicDTO.setId("349110e6-4124-49e7-b4c0-d8cbda1bf935");
+        musicDTO.setName("When You Got A Good Friend");
+        return musicDTO;
     }
 
 }
