@@ -10,11 +10,13 @@ import java.sql.Types;
 
 public class SqlDialect extends Dialect {
 
+    public static final String INTEGER = "integer";
+
     public SqlDialect() {
-        registerColumnType(Types.BIT, "integer");
+        registerColumnType(Types.BIT, INTEGER);
         registerColumnType(Types.TINYINT, "tinyint");
         registerColumnType(Types.SMALLINT, "smallint");
-        registerColumnType(Types.INTEGER, "integer");
+        registerColumnType(Types.INTEGER, INTEGER);
         registerColumnType(Types.BIGINT, "bigint");
         registerColumnType(Types.FLOAT, "float");
         registerColumnType(Types.REAL, "real");
@@ -30,15 +32,15 @@ public class SqlDialect extends Dialect {
         registerColumnType(Types.BINARY, "blob");
         registerColumnType(Types.VARBINARY, "blob");
         registerColumnType(Types.LONGVARBINARY, "blob");
-        // registerColumnType(Types.NULL, "null");
         registerColumnType(Types.BLOB, "blob");
         registerColumnType(Types.CLOB, "clob");
-        registerColumnType(Types.BOOLEAN, "integer");
+        registerColumnType(Types.BOOLEAN, INTEGER);
 
         registerFunction("concat", new VarArgsSQLFunction(StringType.INSTANCE, "", "||", ""));
         registerFunction("mod", new SQLFunctionTemplate(StringType.INSTANCE, "?1 % ?2"));
-        registerFunction("substr", new StandardSQLFunction("substr", StringType.INSTANCE));
-        registerFunction("substring", new StandardSQLFunction("substr", StringType.INSTANCE));
+        String substr = "substr";
+        registerFunction(substr, new StandardSQLFunction(substr, StringType.INSTANCE));
+        registerFunction("substring", new StandardSQLFunction(substr, StringType.INSTANCE));
     }
 
     public boolean supportsIdentityColumns() {
@@ -50,8 +52,7 @@ public class SqlDialect extends Dialect {
     }
 
     public String getIdentityColumnString() {
-        // return "integer primary key autoincrement";
-        return "integer";
+        return INTEGER;
     }
 
     public String getIdentitySelectString() {
