@@ -18,9 +18,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Objects;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -51,7 +52,14 @@ class MusicControllerTest {
 
         var responseEntityDataDTO = musicController.getArtistOrMusic(musicOrArtistExistTest);
 
+        assertNotNull(responseEntityDataDTO.getBody());
+
         assertEquals(HttpStatus.OK, responseEntityDataDTO.getStatusCode());
+        assertEquals(1, Objects.requireNonNull(responseEntityDataDTO.getBody()).getData().size());
+        assertEquals("Eric Clapton", responseEntityDataDTO.getBody().getData().stream().findFirst().get().getArtistEntity().getName());
+        assertEquals("44bee025-4006-4093-8d5d-f330764d9dd0", responseEntityDataDTO.getBody().getData().stream().findFirst().get().getArtistEntity().getId());
+        assertEquals("When You Got A Good Friend", responseEntityDataDTO.getBody().getData().stream().findFirst().get().getName());
+        assertEquals("349110e6-4124-49e7-b4c0-d8cbda1bf935", responseEntityDataDTO.getBody().getData().stream().findFirst().get().getId());
     }
 
     private static void getArtistDTO(MusicDTO musicDTO) {

@@ -31,7 +31,7 @@ public class MusicServiceImpl implements MusicServicePort {
             ArtistOrMusicNotFoundException {
         log.info("Iniciando busca de artistas ou músicas de acordo com os parâmetros '" + searchName + "', em: " + Calendar.getInstance().getTime() + ".");
 
-        if (searchName.length() < 2) {
+        if (searchName.length() <= 1) {
             log.error("Log de Operação inválida com os parâmetros '" + searchName + "'. A busca precisa ter no mínimo" +
                     " 2 caracteres, em: " + Calendar.getInstance().getTime() + ".");
             throw new LengthValidationException();
