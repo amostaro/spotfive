@@ -64,7 +64,8 @@ public class PlaylistServiceImpl implements PlaylistServicePort {
 
     }
 
-    private static void verifyIfMusicExistsInPlaylist(PlaylistEntity playlistEntity, MusicEntity musicEntity) throws MusicNotInPlaylistException {
+    public void verifyIfMusicExistsInPlaylist(PlaylistEntity playlistEntity, MusicEntity musicEntity) throws MusicNotInPlaylistException {
+
         if (!playlistEntity.getMusicEntityList().contains(musicEntity)) {
             throw new MusicNotInPlaylistException();
         }
