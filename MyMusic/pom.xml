@@ -140,9 +140,15 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.8</version>
-                <!--<configuration>
-
-                </configuration> -->
+                <configuration>
+                    <excludes>
+                        <exclude>com/ciandt/summit/bootcamp2022/infrastructure/configuration/**</exclude>
+                        <exclude>com/ciandt/summit/bootcamp2022/config/*</exclude>
+                        <exclude>com/ciandt/summit/bootcamp2022/domain/data/entity/*</exclude>
+                        <exclude>com/ciandt/summit/bootcamp2022/domain/data/dto/*</exclude>
+                        <exclude>com/ciandt/summit/bootcamp2022/domain/service/exception/GlobalExceptionHandler.*</exclude>
+                    </excludes>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>
@@ -171,15 +177,19 @@
                     </dependency>
                 </dependencies>
                 <configuration>
+                    <excludedClasses>
+                        <class>com.ciandt.summit.bootcamp2022.infrastructure.configuration.**</class>
+                        <class>com.ciandt.summit.bootcamp2022.config.*</class>
+                        <class>com.ciandt.summit.bootcamp2022.domain.data.entity.*</class>
+                        <class>com.ciandt.summit.bootcamp2022.domain.data.dto.*</class>
+                        <class>com.ciandt.summit.bootcamp2022.domain.service.exception.GlobalExceptionHandler</class>
+                    </excludedClasses>
                     <targetClasses>
                         <param>com.ciandt.summit.bootcamp2022.*</param>
                     </targetClasses>
                     <targetTests>
                         <param>com.ciandt.summit.bootcamp2022.*</param>
                     </targetTests>
-                    <excludeClasses>
-                        <param>com.ciandt.summit.bootcamp2022.infrastructure.configuration.BeanConfiguration</param>
-                    </excludeClasses>
                 </configuration>
             </plugin>
 
