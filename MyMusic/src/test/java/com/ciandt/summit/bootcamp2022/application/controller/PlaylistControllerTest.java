@@ -4,9 +4,6 @@ import com.ciandt.summit.bootcamp2022.domain.data.entity.ArtistEntity;
 import com.ciandt.summit.bootcamp2022.domain.data.entity.MusicEntity;
 import com.ciandt.summit.bootcamp2022.domain.data.entity.PlaylistEntity;
 import com.ciandt.summit.bootcamp2022.domain.data.entity.UserEntity;
-import com.ciandt.summit.bootcamp2022.domain.port.repository.MusicRepositoryPort;
-import com.ciandt.summit.bootcamp2022.domain.port.repository.PlaylistRepositoryPort;
-import com.ciandt.summit.bootcamp2022.domain.service.MusicServiceImpl;
 import com.ciandt.summit.bootcamp2022.domain.service.PlaylistServiceImpl;
 import com.ciandt.summit.bootcamp2022.domain.service.exception.MusicNotFoundException;
 import com.ciandt.summit.bootcamp2022.domain.service.exception.MusicNotInPlaylistException;
@@ -25,9 +22,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
-@ContextConfiguration(classes = {PlaylistController.class, PlaylistRepositoryPort.class, MusicRepositoryPort.class})
+@ContextConfiguration(classes = {PlaylistController.class})
 @WebMvcTest(controllers = PlaylistController.class)
 class PlaylistControllerTest {
 
@@ -39,15 +36,6 @@ class PlaylistControllerTest {
 
     @MockBean
     private PlaylistServiceImpl playlistService;
-
-    @MockBean
-    private MusicServiceImpl musicService;
-
-    @MockBean
-    private PlaylistRepositoryPort playlistRepositoryPort;
-
-    @MockBean
-    private MusicRepositoryPort musicRepositoryPort;
 
     @DisplayName("Should add music in Playlist properly")
     @Test
@@ -65,8 +53,7 @@ class PlaylistControllerTest {
 
     @DisplayName("Should remove music from Playlist properly")
     @Test
-    void shouldRemoveMusicFromPlaylistProperly() throws MusicNotInPlaylistException, MusicNotFoundException,
-            PlaylistNotFoundException {
+    void shouldRemoveMusicFromPlaylistProperly() throws MusicNotInPlaylistException, MusicNotFoundException, PlaylistNotFoundException {
         ArtistEntity artistEntity = getArtistEntity();
         MusicEntity musicEntity = getMusicEntity(artistEntity);
         UserEntity userEntity = getUserEntity();
