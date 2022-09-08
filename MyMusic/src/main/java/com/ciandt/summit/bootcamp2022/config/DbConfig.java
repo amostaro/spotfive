@@ -32,7 +32,7 @@ public class DbConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
-        em.setPackagesToScan(new String[]{"com.ciandt.summit.bootcamp2022.entity"});
+        em.setPackagesToScan("com.ciandt.summit.bootcamp2022.entity");
         em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         em.setJpaProperties(additionalProperties());
         return em;
@@ -40,20 +40,19 @@ public class DbConfig {
 
     final Properties additionalProperties() {
         final Properties hibernateProperties = new Properties();
-        if (env.getProperty("hibernate.hbm2ddl.auto") != null) {
-            hibernateProperties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
+        String hibernateAuto = "hibernate.hbm2ddl.auto";
+        String hibernateDialect = "hibernate.dialect";
+        String hibernateSql = "hibernate.show_sql";
+        if (env.getProperty(hibernateAuto) != null) {
+            hibernateProperties.setProperty(hibernateAuto, env.getProperty(hibernateAuto));
         }
-        if (env.getProperty("hibernate.dialect") != null) {
-            hibernateProperties.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
+        if (env.getProperty(hibernateDialect) != null) {
+            hibernateProperties.setProperty(hibernateDialect, env.getProperty(hibernateDialect));
         }
-        if (env.getProperty("hibernate.show_sql") != null) {
-            hibernateProperties.setProperty("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
+        if (env.getProperty(hibernateSql) != null) {
+            hibernateProperties.setProperty(hibernateSql, env.getProperty(hibernateSql));
         }
         return hibernateProperties;
     }
 
-}
-
-@Configuration
-class SqliteConfig {
 }

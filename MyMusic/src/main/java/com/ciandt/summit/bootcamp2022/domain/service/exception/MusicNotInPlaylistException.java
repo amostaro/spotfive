@@ -4,11 +4,11 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.Calendar;
 
 @Slf4j
-public class MusicNotInPlaylistException extends Throwable {
+public class MusicNotInPlaylistException extends Exception {
 
-    private static final String message = "Música não encontrada na listagem da playlist informada.";
+    private static final String MESSAGE = "Música não encontrada na listagem da playlist informada.";
     public MusicNotInPlaylistException() {
-        super(message);
+        super(MESSAGE);
         log.error("Processo finalizado com falha.");
         log.error("Música não encontrada na listagem da playlist em: " + Calendar.getInstance().getTime()+ ".");
     }
