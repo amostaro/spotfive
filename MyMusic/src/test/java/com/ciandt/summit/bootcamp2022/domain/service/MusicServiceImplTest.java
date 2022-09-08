@@ -73,7 +73,8 @@ class MusicServiceImplTest {
         LengthValidationException lengthValidationException = Assert.assertThrows(LengthValidationException.class, () ->
                 musicService.findAllByNameLikeIgnoreCase(umCaracter));
 
-        String expectedMessage = "Operação inválida com os parâmetros buscados. A pesquisa precisa conter no mínimo 2 caracteres.";
+        String expectedMessage = "Operação inválida com os parâmetros buscados. A pesquisa precisa conter no mínimo 2" +
+                " caracteres.";
 
         Assert.assertEquals(expectedMessage, lengthValidationException.getMessage());
     }
@@ -84,8 +85,9 @@ class MusicServiceImplTest {
 
         String musicaOuArtistaNaoExistente = "Teste de Musica";
 
-        ArtistOrMusicNotFoundException artistOrMusicNotFoundException = Assert.assertThrows(ArtistOrMusicNotFoundException.class, () ->
-                musicService.findAllByNameLikeIgnoreCase(musicaOuArtistaNaoExistente));
+        ArtistOrMusicNotFoundException artistOrMusicNotFoundException =
+                Assert.assertThrows(ArtistOrMusicNotFoundException.class,
+                        () -> musicService.findAllByNameLikeIgnoreCase(musicaOuArtistaNaoExistente));
 
         String expectedMessage = "Sua pesquisa com os parâmetros buscados não retornou nenhum artista ou música.";
 

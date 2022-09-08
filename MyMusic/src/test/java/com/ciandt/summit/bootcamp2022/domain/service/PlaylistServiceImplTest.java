@@ -6,8 +6,8 @@ import com.ciandt.summit.bootcamp2022.domain.data.entity.PlaylistEntity;
 import com.ciandt.summit.bootcamp2022.domain.data.entity.UserEntity;
 import com.ciandt.summit.bootcamp2022.domain.port.repository.MusicRepositoryPort;
 import com.ciandt.summit.bootcamp2022.domain.port.repository.PlaylistRepositoryPort;
-import com.ciandt.summit.bootcamp2022.domain.service.exception.LengthValidationException;
 import com.ciandt.summit.bootcamp2022.domain.service.exception.MusicNotFoundException;
+import com.ciandt.summit.bootcamp2022.domain.service.exception.MusicNotInPlaylistException;
 import com.ciandt.summit.bootcamp2022.domain.service.exception.PlaylistNotFoundException;
 import org.junit.Assert;
 import org.junit.jupiter.api.DisplayName;
@@ -25,7 +25,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ContextConfiguration(classes = {PlaylistServiceImpl.class})
 @ExtendWith(SpringExtension.class)
@@ -63,9 +63,10 @@ class PlaylistServiceImplTest {
 
         Assert.assertEquals("Música adicionada à playlist com sucesso!", response);
     }
+
     @DisplayName("Should return playlist not found exception")
     @Test
-    public void shouldReturnPlaylistNotFoundException (){
+    public void shouldReturnPlaylistNotFoundException() {
 
         PlaylistNotFoundException playlistNotFoundException = Assert.assertThrows(PlaylistNotFoundException.class, () ->
                 service.verifyIfPlaylistExists(invalidId));
@@ -74,9 +75,10 @@ class PlaylistServiceImplTest {
 
         Assert.assertEquals(expectedMessage, playlistNotFoundException.getMessage());
     }
+
     @DisplayName("Should return music not found exception")
     @Test
-    public void shouldReturnMusicNotFoundException (){
+    public void shouldReturnMusicNotFoundException() {
 
         MusicNotFoundException musicNotFoundException = Assert.assertThrows(MusicNotFoundException.class, () ->
                 service.verifyIfMusicExists(invalidId));
@@ -84,6 +86,46 @@ class PlaylistServiceImplTest {
         String expectedMessage = "Música não encontrada na base de dados.";
 
         Assert.assertEquals(expectedMessage, musicNotFoundException.getMessage());
+    }
+
+    @DisplayName("Should remove music of playlist properly")
+    @Test
+    public void shouldRemoveMusicOfPlaylistProperly() throws MusicNotFoundException, PlaylistNotFoundException,
+            MusicNotInPlaylistException {
+
+        ArtistEntity artistEntity = getArtistEntity();
+        MusicEntity musicEntity = getMusicEntity(artistEntity);
+        UserEntity userEntity = getUserEntity();
+        PlaylistEntity playlistEntity = getPlaylistEntity(userEntity);
+        playlistEntity.getMusicEntityList().add(musicEntity);
+
+        when(playlistRepositoryPort.findById(any())).thenReturn(Optional.of(playlistEntity));
+        when(musicRepositoryPort.findById(any())).thenReturn(Optional.of(musicEntity));
+
+        service.deleteMusicInPlaylist("1", "1");
+
+        verify(playlistRepositoryPort, times(1)).savePlaylist(any(PlaylistEntity.class));
+    }
+
+    @DisplayName("Should return music not in playlist exception")
+    @Test
+    public void shouldReturnMusicNotInPlaylistException() throws MusicNotInPlaylistException {
+        ArtistEntity artistEntity = getArtistEntity();
+        MusicEntity musicEntity = getMusicEntity(artistEntity);
+        UserEntity userEntity = getUserEntity();
+        PlaylistEntity playlistEntity = getPlaylistEntity(userEntity);
+        playlistEntity.getMusicEntityList().add(musicEntity);
+
+        MusicEntity invalidMusicEntity = getMusicEntity(artistEntity);
+        invalidMusicEntity.setId(invalidId);
+
+        MusicNotInPlaylistException musicNotInPlaylistException = Assert.assertThrows(MusicNotInPlaylistException.class,
+                () -> service.verifyIfMusicExistsInPlaylist(playlistEntity, invalidMusicEntity));
+
+        String expectedMessage = "Música não encontrada na listagem da playlist informada.";
+
+        Assert.assertEquals(expectedMessage, musicNotInPlaylistException.getMessage());
+
     }
 
     private static MusicEntity getMusicEntity(ArtistEntity artistEntity) {
