@@ -20,30 +20,42 @@ public class PlaylistServiceImpl implements PlaylistServicePort {
     public static final String INICIADA_EM = "' iniciada em: ";
     private final PlaylistRepositoryPort playlistRepositoryPort;
     private final MusicRepositoryPort musicRepositoryPort;
+    private final UserServiceImpl userService;
 
     @Override
-    public String saveMusicInPlaylist(String idPlaylist, String idMusic) throws PlaylistNotFoundException, MusicNotFoundException {
+    public String saveMusicInPlaylist(String idPlaylist, String idMusic, String userId) throws PlaylistNotFoundException, MusicNotFoundException {
 
         log.info("Iniciando processo de adição de uma música em uma playlist...");
 
         log.info("Busca da playlist '" + idPlaylist + INICIADA_EM + Calendar.getInstance().getTime() + ".");
         PlaylistEntity playlistEntity = verifyIfPlaylistExists(idPlaylist);
 
-        log.info("Busca da música '" + idMusic + INICIADA_EM + Calendar.getInstance().getTime() + ".");
-        MusicEntity musicEntity = verifyIfMusicExists(idMusic);
+        if (playlistEntity.getMusicEntityList().size() > 5) {
+            if (userService.userIsPremium(userId) == true) {
 
-        playlistEntity.getMusicEntityList().add(musicEntity);
+                log.info("Busca da música '" + idMusic + INICIADA_EM + Calendar.getInstance().getTime() + ".");
+                MusicEntity musicEntity = verifyIfMusicExists(idMusic);
 
-        playlistRepositoryPort.savePlaylist(playlistEntity);
+                playlistEntity.getMusicEntityList().add(musicEntity);
 
-        log.info("Processo finalizado.");
-        log.info("Música '" + idMusic + "' adicionada à playlist '" + idPlaylist + "' com sucesso em: " + Calendar.getInstance().getTime() + ".");
+                playlistRepositoryPort.savePlaylist(playlistEntity);
 
-        return "Música adicionada à playlist com sucesso!";
+                log.info("Processo finalizado.");
+                log.info("Música '" + idMusic + "' adicionada à playlist '" + idPlaylist + "' com sucesso em: " + Calendar.getInstance().getTime() + ".");
+
+                return "Música adicionada à playlist com sucesso!";
+
+            }
+
+        }
+        return "Você atingiu o número máximo de músicas em sua playlist.Para adicionar mais músicas contrate o plano " +
+                "Premium.";
+
     }
 
     @Override
-    public void deleteMusicInPlaylist(String idPlaylist, String idMusic) throws PlaylistNotFoundException, MusicNotFoundException, MusicNotInPlaylistException {
+    public void deleteMusicInPlaylist(String idPlaylist, String idMusic) throws PlaylistNotFoundException,
+            MusicNotFoundException, MusicNotInPlaylistException {
 
         log.info("Iniciando processo de remoção de uma música de uma playlist...");
 

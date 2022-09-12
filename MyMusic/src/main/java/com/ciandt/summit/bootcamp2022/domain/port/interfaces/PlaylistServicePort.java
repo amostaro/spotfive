@@ -6,7 +6,7 @@ import com.ciandt.summit.bootcamp2022.domain.service.exception.PlaylistNotFoundE
 
 public interface PlaylistServicePort {
 
-    String saveMusicInPlaylist(String idPlaylist, String idMusic) throws PlaylistNotFoundException, MusicNotFoundException;
+    String saveMusicInPlaylist(String idPlaylist, String idMusic, String userId) throws PlaylistNotFoundException, MusicNotFoundException;
 
     void deleteMusicInPlaylist(String idPlaylist, String idMusic) throws PlaylistNotFoundException, MusicNotFoundException, MusicNotInPlaylistException;
 }

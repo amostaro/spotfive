@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserServicePort {
         return userRepositoryPort.findUserTypeById(userId);
     }
 
-    public boolean AddingMusicIsAllowed(String userId) {
+    public boolean userIsPremium(String userId) {
         Optional<UserEntity> userEntity = verifyIfUserExists(userId);
 
         String userType = verifyUserType(userEntity.get().getId());
