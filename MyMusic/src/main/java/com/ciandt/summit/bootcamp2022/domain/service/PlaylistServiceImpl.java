@@ -30,7 +30,7 @@ public class PlaylistServiceImpl implements PlaylistServicePort {
         log.info("Busca da playlist '" + idPlaylist + INICIADA_EM + Calendar.getInstance().getTime() + ".");
         PlaylistEntity playlistEntity = verifyIfPlaylistExists(idPlaylist);
 
-        if (playlistEntity.getMusicEntityList().size() > 5) {
+        if (playlistEntity.getMusicEntityList().size() >= 4) {
             if (userService.userIsPremium(userId) == true) {
 
                 log.info("Busca da música '" + idMusic + INICIADA_EM + Calendar.getInstance().getTime() + ".");
@@ -48,8 +48,9 @@ public class PlaylistServiceImpl implements PlaylistServicePort {
             }
 
         }
-        return "Você atingiu o número máximo de músicas em sua playlist.Para adicionar mais músicas contrate o plano " +
-                "Premium.";
+
+        log.info("Processo finalizado sem sucesso, o usuário atingiu o número máximo de músicas na lista, permitida no seu plano. Finalizado em: "+ Calendar.getInstance().getTime() + ".");
+        return "Você atingiu o número máximo de músicas em sua playlist. Para adicionar mais músicas contrate o plano Premium.";
 
     }
 

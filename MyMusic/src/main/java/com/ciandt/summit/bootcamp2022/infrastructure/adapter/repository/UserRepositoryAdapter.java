@@ -22,4 +22,9 @@ public class UserRepositoryAdapter implements UserRepositoryPort {
     public Optional<UserEntity> findById(String userId) {
         return springUserRepository.findById(userId);
     }
+
+    @Override
+    public void saveUser(Optional<UserEntity> userEntity) {
+        springUserRepository.save(userEntity);
+    }
 }

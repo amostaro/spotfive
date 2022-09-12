@@ -12,5 +12,7 @@ public interface SpringUserRepository extends JpaRepository<UserEntity, String> 
     @Query("SELECT TipoUsuarioId from Usuarios WHERE Id = userId")
     String findTypeById(String userId);
     Optional<UserEntity> findById(String userId);
+
+    Optional<UserEntity> save(Optional<UserEntity> userEntity);
 }
 

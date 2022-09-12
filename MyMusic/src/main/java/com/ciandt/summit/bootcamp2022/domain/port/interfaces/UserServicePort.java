@@ -11,4 +11,6 @@ public interface UserServicePort {
     String verifyUserType (String userId);
 
     boolean userIsPremium(String userId);
+
+    String updateUserType(String userId, String userTypeId);
 }

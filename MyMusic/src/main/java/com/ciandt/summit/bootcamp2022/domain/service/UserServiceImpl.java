@@ -34,4 +34,16 @@ public class UserServiceImpl implements UserServicePort {
         return false;
     }
 
+    @Override
+    public String updateUserType(String userId, String userTypeId) {
+
+        Optional<UserEntity> userEntity = userRepositoryPort.findById(userId);
+
+        userEntity.get().getTipoUsuarioEntity().setId(userTypeId);
+
+        userRepositoryPort.saveUser(userEntity);
+
+        return "Usuário atualizado com sucesso!";
+    }
+
 }
