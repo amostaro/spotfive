@@ -10,7 +10,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity(name = "TipoUsuario")
-@Table(name = "TipoUsuario")
+@Table(name = "tipousuario")
 public class TipoUsuarioEntity {
 
     @Id

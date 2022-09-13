@@ -31,26 +31,25 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(LengthValidationException.class)
-    public ResponseEntity<Object> handleException(LengthValidationException exception) {
-        return getObjectResponseEntity(exception.getMessage());
+    public ResponseEntity<Object> getObjectResponseEntityNoContent(String message) {
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", new Date());
+        body.put(STATUS, HttpStatus.NO_CONTENT.value());
+        body.put("message", message);
+        return new ResponseEntity<>(body, HttpStatus.NO_CONTENT);
     }
 
     @ExceptionHandler(ArtistOrMusicNotFoundException.class)
     public ResponseEntity<Object> handleException(ArtistOrMusicNotFoundException exception) {
-        Map<String, Object> body = new LinkedHashMap<>();
-        body.put("timestamp", new Date());
-        body.put(STATUS, HttpStatus.NO_CONTENT.value());
-        body.put("message", exception.getMessage());
-        return new ResponseEntity<>(body, HttpStatus.NO_CONTENT);
+        return getObjectResponseEntityNoContent(exception.getMessage());
     }
 
-    @ExceptionHandler(PlaylistNotFoundException.class)
-    public ResponseEntity<Object> handleException(PlaylistNotFoundException exception) {
-        return getObjectResponseEntity(exception.getMessage());
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<Object> handleException(UserNotFoundException exception) {
+        return getObjectResponseEntityNoContent(exception.getMessage());
     }
 
-    private ResponseEntity<Object> getObjectResponseEntity(String message) {
+    private ResponseEntity<Object> getObjectResponseEntityBadRequest(String message) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", new Date());
         body.put(STATUS, HttpStatus.BAD_REQUEST.value());
@@ -58,13 +57,34 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(PlaylistNotFoundException.class)
+    public ResponseEntity<Object> handleException(PlaylistNotFoundException exception) {
+        return getObjectResponseEntityBadRequest(exception.getMessage());
+    }
+
+    @ExceptionHandler(LengthValidationException.class)
+    public ResponseEntity<Object> handleException(LengthValidationException exception) {
+        return getObjectResponseEntityBadRequest(exception.getMessage());
+    }
+
     @ExceptionHandler(MusicNotFoundException.class)
     public ResponseEntity<Object> handleException(MusicNotFoundException exception) {
-        return getObjectResponseEntity(exception.getMessage());
+        return getObjectResponseEntityBadRequest(exception.getMessage());
     }
 
     @ExceptionHandler(MusicNotInPlaylistException.class)
     public ResponseEntity<Object> handleException(MusicNotInPlaylistException exception) {
-        return getObjectResponseEntity(exception.getMessage());
+        return getObjectResponseEntityBadRequest(exception.getMessage());
     }
+
+    @ExceptionHandler(PlaylistIsNotOfUserException.class)
+    public ResponseEntity<Object> handleException(PlaylistIsNotOfUserException exception) {
+        return getObjectResponseEntityBadRequest(exception.getMessage());
+    }
+
+    @ExceptionHandler(PlaylistLimitException.class)
+    public ResponseEntity<Object> handleException(PlaylistLimitException exception) {
+        return getObjectResponseEntityBadRequest(exception.getMessage());
+    }
+
 }

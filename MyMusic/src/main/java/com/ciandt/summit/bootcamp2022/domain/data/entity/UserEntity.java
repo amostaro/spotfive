@@ -1,8 +1,7 @@
 package com.ciandt.summit.bootcamp2022.domain.data.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -25,11 +24,16 @@ public class UserEntity {
     @JoinColumn(name = "playlistid", referencedColumnName = "Id")
     private PlaylistEntity playlistEntity;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(referencedColumnName = "Id")
-    private TipoUsuarioEntity tipoUsuarioEntity;
-
     @Column(name = "playlistid", insertable = false, updatable = false)
     private String playlistId;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tipousuarioid", referencedColumnName = "Id")
+    @ToString.Exclude
+    private TipoUsuarioEntity tipoUsuarioEntity;
+
+    @Column(name = "tipousuarioid", insertable = false, updatable = false)
+    private String tipoUsuarioId;
+
 }
