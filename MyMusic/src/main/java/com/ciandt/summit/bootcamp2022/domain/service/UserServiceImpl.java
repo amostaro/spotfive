@@ -1,5 +1,6 @@
 package com.ciandt.summit.bootcamp2022.domain.service;
 
+import com.ciandt.summit.bootcamp2022.domain.data.entity.TipoUsuarioEntity;
 import com.ciandt.summit.bootcamp2022.domain.data.entity.UserEntity;
 import com.ciandt.summit.bootcamp2022.domain.port.interfaces.UserServicePort;
 import com.ciandt.summit.bootcamp2022.domain.port.repository.UserRepositoryPort;
@@ -23,9 +24,9 @@ public class UserServiceImpl implements UserServicePort {
     }
 
     public boolean userIsPremium(String userId) {
-        Optional<UserEntity> userEntity = verifyIfUserExists(userId);
+        UserEntity userEntity = verifyIfUserExists(userId).get();
 
-        String userType = verifyUserType(userEntity.get().getId());
+        String userType = verifyUserType(userEntity.getId());
 
         if (userType.equals("sa764b91-1235-2s9x-2k4e-2s5687x4lco2")) {
             return true;
@@ -37,9 +38,11 @@ public class UserServiceImpl implements UserServicePort {
     @Override
     public String updateUserType(String userId, String userTypeId) {
 
-        Optional<UserEntity> userEntity = userRepositoryPort.findById(userId);
+        UserEntity userEntity = userRepositoryPort.findById(userId).get();
 
-        userEntity.get().getTipoUsuarioEntity().setId(userTypeId);
+        TipoUsuarioEntity tipoUsuarioEntity = new TipoUsuarioEntity();
+        tipoUsuarioEntity.setId(userTypeId);
+        userEntity.setTipoUsuarioEntity(tipoUsuarioEntity);
 
         userRepositoryPort.saveUser(userEntity);
 

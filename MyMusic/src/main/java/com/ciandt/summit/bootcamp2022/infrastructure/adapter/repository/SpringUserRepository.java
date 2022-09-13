@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface SpringUserRepository extends JpaRepository<UserEntity, String> {
-    @Query("SELECT TipoUsuarioId from Usuarios WHERE Id = userId")
+    @Query("SELECT tipoUsuarioEntity.id from Usuarios WHERE id = :userId")
     String findTypeById(String userId);
     Optional<UserEntity> findById(String userId);
 

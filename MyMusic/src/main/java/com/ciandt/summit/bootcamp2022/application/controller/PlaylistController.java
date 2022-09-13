@@ -29,9 +29,9 @@ public class PlaylistController {
 
     @Operation(description = "Realiza a busca de uma playlist pelo seu id, e adiciona uma música na lista, de acordo com o id da música informado.")
     @PutMapping("/{playlistId}/{userId}/music")
-    public ResponseEntity<String> addMusicInPlaylist(@RequestParam String idMusica, @PathVariable String idPlaylist, @PathVariable String userId) throws MusicNotFoundException, PlaylistNotFoundException {
+    public ResponseEntity<String> addMusicInPlaylist(@RequestParam String musicId, @PathVariable String playlistId, @PathVariable String userId) throws MusicNotFoundException, PlaylistNotFoundException, MusicNotInPlaylistException {
 
-        String updated = playlistServicePort.saveMusicInPlaylist(idPlaylist, idMusica, userId);
+        String updated = playlistServicePort.saveMusicInPlaylist(playlistId, musicId, userId);
 
         return new ResponseEntity<>(updated, HttpStatus.CREATED);
     }

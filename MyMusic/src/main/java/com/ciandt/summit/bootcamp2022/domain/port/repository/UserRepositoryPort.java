@@ -10,5 +10,5 @@ public interface UserRepositoryPort {
 
     Optional<UserEntity> findById(String userId);
 
-    void saveUser(Optional<UserEntity> userEntity);
+    void saveUser(UserEntity userEntity);
 }

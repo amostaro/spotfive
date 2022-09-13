@@ -3,16 +3,17 @@ package com.ciandt.summit.bootcamp2022.application.controller;
 import com.ciandt.summit.bootcamp2022.domain.port.interfaces.UserServicePort;
 import com.ciandt.summit.bootcamp2022.domain.service.exception.UserBadRequestException;
 import io.swagger.v3.oas.annotations.Operation;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
 
-    private UserServicePort userServicePort;
+    private final UserServicePort userServicePort;
 
     @Operation(description = "")
     @PutMapping("/{userId}")

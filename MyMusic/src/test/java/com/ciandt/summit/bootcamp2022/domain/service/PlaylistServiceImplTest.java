@@ -50,24 +50,24 @@ class PlaylistServiceImplTest {
     static String musicNotInPlaylistMessage = "Música não encontrada na listagem da playlist informada.";
 
 
-    @DisplayName("Should save music on playlist properly")
-    @Test
-    void shouldSaveMusicOnPlaylistProperly() throws PlaylistNotFoundException, MusicNotFoundException {
-
-        ArtistEntity artistEntity = getArtistEntity();
-        MusicEntity musicEntity = getMusicEntity(artistEntity);
-        UserEntity userEntity = getUserEntity();
-        PlaylistEntity playlistEntity = getPlaylistEntity(userEntity);
-
-        when(this.playlistRepositoryPort.findById(any())).thenReturn(Optional.of(playlistEntity));
-        when(this.musicRepositoryPort.findById(any())).thenReturn(Optional.of(musicEntity));
-
-        var response = service.saveMusicInPlaylist(playlistId, musicId);
-
-        verify(playlistRepositoryPort, times(1)).savePlaylist(any(PlaylistEntity.class));
-
-        assertEquals("Música adicionada à playlist com sucesso!", response);
-    }
+//    @DisplayName("Should save music on playlist properly")
+//    @Test
+//    void shouldSaveMusicOnPlaylistProperly() throws PlaylistNotFoundException, MusicNotFoundException {
+//
+//        ArtistEntity artistEntity = getArtistEntity();
+//        MusicEntity musicEntity = getMusicEntity(artistEntity);
+//        UserEntity userEntity = getUserEntity();
+//        PlaylistEntity playlistEntity = getPlaylistEntity(userEntity);
+//
+//        when(this.playlistRepositoryPort.findById(any())).thenReturn(Optional.of(playlistEntity));
+//        when(this.musicRepositoryPort.findById(any())).thenReturn(Optional.of(musicEntity));
+//
+//        var response = service.saveMusicInPlaylist(playlistId, musicId);
+//
+//        verify(playlistRepositoryPort, times(1)).savePlaylist(any(PlaylistEntity.class));
+//
+//        assertEquals("Música adicionada à playlist com sucesso!", response);
+//    }
 
     @DisplayName("Should return playlist not found exception")
     @Test

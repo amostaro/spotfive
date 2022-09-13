@@ -24,7 +24,7 @@ public class UserRepositoryAdapter implements UserRepositoryPort {
     }
 
     @Override
-    public void saveUser(Optional<UserEntity> userEntity) {
+    public void saveUser(UserEntity userEntity) {
         springUserRepository.save(userEntity);
     }
 }
