@@ -17,7 +17,6 @@ public class UserServiceImpl implements UserServicePort {
 
     @Override
     public UserEntity findUserById(String idUser) throws UserNotFoundException {
-
         return userRepositoryPort.findById(idUser)
                 .orElseThrow(UserNotFoundException::new);
     }
@@ -29,13 +28,11 @@ public class UserServiceImpl implements UserServicePort {
         if (Objects.equals(userEntity.getTipoUsuarioId(), "mi561c28-4956-4k9c-3s4e-6l5461v3uio8")) {
             tipoUsuarioEntity.setId("sa764b91-1235-2s9x-2k4e-2s5687x4lco2");
             tipoUsuarioEntity.setDescricao("Premium");
-            userEntity.setTipoUsuarioEntity(tipoUsuarioEntity);
-            userRepositoryPort.save(userEntity);
         } else {
             tipoUsuarioEntity.setId("mi561c28-4956-4k9c-3s4e-6l5461v3uio8");
             tipoUsuarioEntity.setDescricao("Comum");
-            userEntity.setTipoUsuarioEntity(tipoUsuarioEntity);
-            userRepositoryPort.save(userEntity);
         }
+        userEntity.setTipoUsuarioEntity(tipoUsuarioEntity);
+        userRepositoryPort.save(userEntity);
     }
 }

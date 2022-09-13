@@ -6,6 +6,7 @@ import com.ciandt.summit.bootcamp2022.domain.data.entity.PlaylistEntity;
 import com.ciandt.summit.bootcamp2022.domain.data.entity.UserEntity;
 import com.ciandt.summit.bootcamp2022.domain.port.repository.MusicRepositoryPort;
 import com.ciandt.summit.bootcamp2022.domain.port.repository.PlaylistRepositoryPort;
+import com.ciandt.summit.bootcamp2022.domain.port.repository.UserRepositoryPort;
 import com.ciandt.summit.bootcamp2022.domain.service.exception.MusicNotFoundException;
 import com.ciandt.summit.bootcamp2022.domain.service.exception.MusicNotInPlaylistException;
 import com.ciandt.summit.bootcamp2022.domain.service.exception.PlaylistNotFoundException;
@@ -41,6 +42,9 @@ class PlaylistServiceImplTest {
 
     @MockBean
     private MusicRepositoryPort musicRepositoryPort;
+
+    @MockBean
+    private UserRepositoryPort userRepositoryPort;
 
     static String invalidId = "1234";
     static String playlistId = "92d8123f-e9f6-4806-8e0e-1c6a5d46f2ed";
