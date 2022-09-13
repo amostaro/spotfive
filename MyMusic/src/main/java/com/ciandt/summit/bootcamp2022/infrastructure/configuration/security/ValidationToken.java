@@ -8,7 +8,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -19,7 +18,8 @@ public class ValidationToken {
     @Autowired
     private AuthenticationApiIntegration authenticationApiIntegration;
 
-    void validationTokenMethod(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain, CreateAuthorizerRequest data) throws IOException, ServletException {
+    void validationTokenMethod(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain, CreateAuthorizerRequest data) throws IOException {
+        try {
             authenticationApiIntegration.isValidToken(data);
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                     new UsernamePasswordAuthenticationToken("Nome vindo do Banco", null, null);
@@ -27,5 +27,8 @@ public class ValidationToken {
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 
             filterChain.doFilter(request, response);
+        } catch (Exception e) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "The token is not valid.");
+        }
     }
 }

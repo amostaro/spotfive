@@ -40,18 +40,18 @@ class PlaylistControllerTest {
     static String playlistId = "92d8123f-e9f6-4806-8e0e-1c6a5d46f2ed";
     static String musicId = "c96b8f6f-4049-4e6b-8687-82e29c05b735";
 
-//    @DisplayName("Should add music in Playlist properly")
-//    @Test
-//    void shouldAddMusicInPlaylistProperly() throws Exception {
-//
-//        when(playlistService.saveMusicInPlaylist(playlistId, musicId)).thenReturn("Música adicionada à playlist com sucesso!");
-//
-//        var response = playlistController.addMusicInPlaylist(musicId, playlistId);
-//
-//        assertNotNull(response);
-//
-//        assertEquals(HttpStatus.CREATED, response.getStatusCode());
-//    }
+    @DisplayName("Should add music in Playlist properly")
+    @Test
+    void shouldAddMusicInPlaylistProperly() throws Exception {
+
+        when(playlistService.saveMusicInPlaylist(playlistId, musicId)).thenReturn("Música adicionada à playlist com sucesso!");
+
+        var response = playlistController.addMusicInPlaylist(musicId, playlistId);
+
+        assertNotNull(response);
+
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+    }
 
     @DisplayName("Should remove music from Playlist properly")
     @Test
