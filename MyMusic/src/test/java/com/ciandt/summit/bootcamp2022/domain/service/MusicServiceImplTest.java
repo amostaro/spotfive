@@ -7,7 +7,6 @@ import com.ciandt.summit.bootcamp2022.domain.data.entity.MusicEntity;
 import com.ciandt.summit.bootcamp2022.domain.port.repository.MusicRepositoryPort;
 import com.ciandt.summit.bootcamp2022.domain.service.exception.ArtistOrMusicNotFoundException;
 import com.ciandt.summit.bootcamp2022.domain.service.exception.LengthValidationException;
-import org.junit.Assert;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,6 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 @ContextConfiguration(classes = {MusicServiceImpl.class})
@@ -39,9 +40,15 @@ class MusicServiceImplTest {
     @MockBean
     private MusicRepositoryPort musicRepositoryPort;
 
+    static String lengthValidationTest = "E";
+    static String lengthValidationMessage = "Operação inválida com os parâmetros buscados. A pesquisa precisa conter no mínimo 2 caracteres.";
+    static String musicOrArtistNotFoundTest = "Teste de Musica";
+    static String musicOrArtistNotFoundMessage = "Sua pesquisa com os parâmetros buscados não retornou nenhum artista ou música.";
+
     @Test
     @DisplayName("Should return music list properly")
-    public void shouldReturnMusicListProperlyTest() throws ArtistOrMusicNotFoundException, LengthValidationException {
+    void shouldReturnMusicListProperlyTest() throws ArtistOrMusicNotFoundException, LengthValidationException {
+
         List<MusicEntity> musicEntityList = new ArrayList<>();
         List<MusicDTO> musicDTOList = new ArrayList<>();
 
@@ -61,35 +68,28 @@ class MusicServiceImplTest {
 
         DataDTO methodReturnDTO = musicService.findAllByNameLikeIgnoreCase(searchName);
 
-        Assert.assertEquals(dataDTO, methodReturnDTO);
+        assertEquals(dataDTO, methodReturnDTO);
     }
 
     @Test
     @DisplayName("Should return length validation exception")
-    public void shouldReturnLengthValidationExceptionTest() throws LengthValidationException {
+    void shouldReturnLengthValidationExceptionTest() throws LengthValidationException {
 
-        String umCaracter = "E";
+        LengthValidationException lengthValidationException = assertThrows(LengthValidationException.class, () ->
+                musicService.findAllByNameLikeIgnoreCase(lengthValidationTest));
 
-        LengthValidationException lengthValidationException = Assert.assertThrows(LengthValidationException.class, () ->
-                musicService.findAllByNameLikeIgnoreCase(umCaracter));
-
-        String expectedMessage = "Operação inválida com os parâmetros buscados. A pesquisa precisa conter no mínimo 2 caracteres.";
-
-        Assert.assertEquals(expectedMessage, lengthValidationException.getMessage());
+        assertEquals(lengthValidationMessage, lengthValidationException.getMessage());
     }
 
     @Test
     @DisplayName("Should return artist or music not found exception")
-    public void shouldReturnArtistOrMusicNotFoundExceptionTest() throws ArtistOrMusicNotFoundException {
+    void shouldReturnArtistOrMusicNotFoundExceptionTest() throws ArtistOrMusicNotFoundException {
 
-        String musicaOuArtistaNaoExistente = "Teste de Musica";
+        ArtistOrMusicNotFoundException artistOrMusicNotFoundException =
+                assertThrows(ArtistOrMusicNotFoundException.class,
+                        () -> musicService.findAllByNameLikeIgnoreCase(musicOrArtistNotFoundTest));
 
-        ArtistOrMusicNotFoundException artistOrMusicNotFoundException = Assert.assertThrows(ArtistOrMusicNotFoundException.class, () ->
-                musicService.findAllByNameLikeIgnoreCase(musicaOuArtistaNaoExistente));
-
-        String expectedMessage = "Sua pesquisa com os parâmetros buscados não retornou nenhum artista ou música.";
-
-        Assert.assertEquals(expectedMessage, artistOrMusicNotFoundException.getMessage());
+        assertEquals(musicOrArtistNotFoundMessage, artistOrMusicNotFoundException.getMessage());
     }
 
     private static void getArtistDTO(MusicDTO musicDTO) {
