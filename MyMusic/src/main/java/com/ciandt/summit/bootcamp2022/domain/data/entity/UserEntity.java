@@ -27,7 +27,7 @@ public class UserEntity {
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(referencedColumnName = "Id")
+    @JoinColumn(name = "tipousuarioid", referencedColumnName = "Id")
     private TipoUsuarioEntity tipoUsuarioEntity;
 
     @Column(name = "playlistid", insertable = false, updatable = false)
