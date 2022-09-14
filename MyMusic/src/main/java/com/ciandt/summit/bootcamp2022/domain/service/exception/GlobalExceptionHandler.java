@@ -67,4 +67,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Object> handleException(MusicNotInPlaylistException exception) {
         return getObjectResponseEntity(exception.getMessage());
     }
+
+    @ExceptionHandler(UserBadRequestException.class)
+    public ResponseEntity<Object> handleException(UserBadRequestException exception){
+        return getObjectResponseEntity((exception.getMessage()));
+    }
 }
