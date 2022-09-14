@@ -25,11 +25,14 @@ public class UserEntity {
     @JoinColumn(name = "playlistid", referencedColumnName = "Id")
     private PlaylistEntity playlistEntity;
 
+    @Column(name = "playlistid", insertable = false, updatable = false)
+    private String playlistId;
+
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tipousuarioid", referencedColumnName = "Id")
     private TipoUsuarioEntity tipoUsuarioEntity;
 
-    @Column(name = "playlistid", insertable = false, updatable = false)
-    private String playlistId;
+    @Column(name = "tipousuarioid", insertable = false, updatable = false)
+    private String tipoUsuarioId;
 }

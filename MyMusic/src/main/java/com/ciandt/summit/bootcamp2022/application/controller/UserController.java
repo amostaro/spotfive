@@ -1,7 +1,6 @@
 package com.ciandt.summit.bootcamp2022.application.controller;
 
 import com.ciandt.summit.bootcamp2022.domain.port.interfaces.UserServicePort;
-import com.ciandt.summit.bootcamp2022.domain.service.exception.UserBadRequestException;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,7 +16,7 @@ public class UserController {
 
     @Operation(description = "")
     @PutMapping("/{userId}")
-    public ResponseEntity<String> updateUserType(@PathVariable String userId, @RequestParam String userTypeId ) throws UserBadRequestException {
+    public ResponseEntity<String> updateUserType(@PathVariable String userId, @RequestParam String userTypeId ) {
 
         String updateUser = userServicePort.updateUserType(userId, userTypeId);
 
@@ -26,7 +25,7 @@ public class UserController {
 
     @Operation(description = "")
     @GetMapping("/{userId}")
-    public ResponseEntity<String> getUserType(@RequestParam @PathVariable String userId) throws UserBadRequestException {
+    public ResponseEntity<String> getUserType(@RequestParam @PathVariable String userId) {
         var getUser = userServicePort.verifyUserType(userId);
         return new ResponseEntity<>(getUser, HttpStatus.OK);
     }

@@ -162,7 +162,6 @@
                         <exclude>com/ciandt/summit/bootcamp2022/domain/data/entity/*</exclude>
                         <exclude>com/ciandt/summit/bootcamp2022/domain/data/dto/*</exclude>
                         <exclude>com/ciandt/summit/bootcamp2022/domain/service/ArtistServiceImpl.*</exclude>
-                        <exclude>com/ciandt/summit/bootcamp2022/domain/service/UserServiceImpl.*</exclude>
                         <exclude>com/ciandt/summit/bootcamp2022/domain/service/exception/GlobalExceptionHandler.*</exclude>
                     </excludes>
                 </configuration>
