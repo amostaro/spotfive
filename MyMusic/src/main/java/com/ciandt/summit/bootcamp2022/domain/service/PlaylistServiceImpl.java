@@ -40,7 +40,7 @@ public class PlaylistServiceImpl implements PlaylistServicePort {
         log.info("Busca da música '" + idMusic + INICIADA_EM + Calendar.getInstance().getTime() + ".");
         MusicEntity musicEntity = verifyIfMusicExists(idMusic);
 
-        if (userServicePort.userIsPremium(userId) || (userServicePort.userIsPremium(userId) == false && playlistEntity.getMusicEntityList().size() <= 5)) {
+        if (userServicePort.userIsPremium(userId) || (userServicePort.userIsPremium(userId) == false && playlistEntity.getMusicEntityList().size() <= 4)) {
             playlistEntity.getMusicEntityList().add(musicEntity);
 
             playlistRepositoryPort.savePlaylist(playlistEntity);
