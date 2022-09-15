@@ -17,6 +17,11 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <sonar.coverage.exclusions>src/main/java/com/ciandt/summit/bootcamp2022/domain/service/exception/**</sonar.coverage.exclusions>
+        <sonar.coverage.exclusions>com/ciandt/summit/bootcamp2022/infrastructure/configuration/**</sonar.coverage.exclusions>
+        <sonar.coverage.exclusions>com/ciandt/summit/bootcamp2022/config/*</sonar.coverage.exclusions>
+        <sonar.coverage.exclusions>com/ciandt/summit/bootcamp2022/domain/data/entity/*</sonar.coverage.exclusions>
+        <sonar.coverage.exclusions>com/ciandt/summit/bootcamp2022/domain/data/dto/*</sonar.coverage.exclusions>
+        <sonar.coverage.exclusions>com/ciandt/summit/bootcamp2022/domain/service/ArtistServiceImpl.*</sonar.coverage.exclusions>
         <sonar.organization>ciandt-mymusic-spotfive</sonar.organization>
         <sonar.host.url>https://sonarcloud.io/</sonar.host.url>
     </properties>
@@ -166,7 +171,8 @@
                         <exclude>com/ciandt/summit/bootcamp2022/domain/data/entity/*</exclude>
                         <exclude>com/ciandt/summit/bootcamp2022/domain/data/dto/*</exclude>
                         <exclude>com/ciandt/summit/bootcamp2022/domain/service/ArtistServiceImpl.*</exclude>
-                        <exclude>com/ciandt/summit/bootcamp2022/domain/service/exception/GlobalExceptionHandler.*</exclude>
+                        <exclude>com/ciandt/summit/bootcamp2022/domain/service/exception/GlobalExceptionHandler.*
+                        </exclude>
                     </excludes>
                 </configuration>
                 <executions>
