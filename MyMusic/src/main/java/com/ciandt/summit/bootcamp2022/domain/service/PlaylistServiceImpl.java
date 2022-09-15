@@ -6,9 +6,7 @@ import com.ciandt.summit.bootcamp2022.domain.port.interfaces.PlaylistServicePort
 import com.ciandt.summit.bootcamp2022.domain.port.interfaces.UserServicePort;
 import com.ciandt.summit.bootcamp2022.domain.port.repository.MusicRepositoryPort;
 import com.ciandt.summit.bootcamp2022.domain.port.repository.PlaylistRepositoryPort;
-import com.ciandt.summit.bootcamp2022.domain.service.exception.MusicNotFoundException;
-import com.ciandt.summit.bootcamp2022.domain.service.exception.MusicNotInPlaylistException;
-import com.ciandt.summit.bootcamp2022.domain.service.exception.PlaylistNotFoundException;
+import com.ciandt.summit.bootcamp2022.domain.service.exception.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -30,7 +28,7 @@ public class PlaylistServiceImpl implements PlaylistServicePort {
     private UserServicePort userServicePort;
 
     @Override
-    public String saveMusicInPlaylist(String idPlaylist, String idMusic, String userId) throws PlaylistNotFoundException, MusicNotFoundException {
+    public String saveMusicInPlaylist(String idPlaylist, String idMusic, String userId) throws PlaylistNotFoundException, MusicNotFoundException, UserNotFoundException, MusicLimitException {
 
         log.info("Iniciando processo de adição de uma música em uma playlist...");
 
@@ -40,7 +38,7 @@ public class PlaylistServiceImpl implements PlaylistServicePort {
         log.info("Busca da música '" + idMusic + INICIADA_EM + Calendar.getInstance().getTime() + ".");
         MusicEntity musicEntity = verifyIfMusicExists(idMusic);
 
-        if (userServicePort.userIsPremium(userId) || (userServicePort.userIsPremium(userId) == false && playlistEntity.getMusicEntityList().size() <= 5)) {
+        if (userServicePort.userIsPremium(userId) || (!userServicePort.userIsPremium(userId) && playlistEntity.getMusicEntityList().size() <= 4)) {
             playlistEntity.getMusicEntityList().add(musicEntity);
 
             playlistRepositoryPort.savePlaylist(playlistEntity);
@@ -50,14 +48,9 @@ public class PlaylistServiceImpl implements PlaylistServicePort {
 
             return "Música adicionada à playlist com sucesso!";
 
+        } else {
+            throw new MusicLimitException();
         }
-
-        log.info("Processo finalizado sem sucesso, o usuário atingiu o número máximo de músicas na lista, permitida " +
-                "no seu plano. Finalizado em: " + Calendar.getInstance().getTime() + ".");
-
-        return "Você atingiu o número máximo de músicas em sua playlist. Para adicionar mais músicas contrate o plano" +
-                " Premium.";
-
     }
 
     @Override

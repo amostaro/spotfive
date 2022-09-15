@@ -1,9 +1,7 @@
 package com.ciandt.summit.bootcamp2022.application.controller;
 
 import com.ciandt.summit.bootcamp2022.domain.port.interfaces.PlaylistServicePort;
-import com.ciandt.summit.bootcamp2022.domain.service.exception.MusicNotFoundException;
-import com.ciandt.summit.bootcamp2022.domain.service.exception.MusicNotInPlaylistException;
-import com.ciandt.summit.bootcamp2022.domain.service.exception.PlaylistNotFoundException;
+import com.ciandt.summit.bootcamp2022.domain.service.exception.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -29,7 +27,7 @@ public class PlaylistController {
 
     @Operation(description = "Realiza a busca de uma playlist pelo seu id, e adiciona uma música na lista, de acordo com o id da música informado.")
     @PutMapping("/{playlistId}/{userId}/music")
-    public ResponseEntity<String> addMusicInPlaylist(@RequestParam String musicId, @PathVariable String playlistId, @PathVariable String userId) throws MusicNotFoundException, PlaylistNotFoundException, MusicNotInPlaylistException {
+    public ResponseEntity<String> addMusicInPlaylist(@RequestParam String musicId, @PathVariable String playlistId, @PathVariable String userId) throws MusicNotFoundException, PlaylistNotFoundException, MusicNotInPlaylistException, UserNotFoundException, MusicLimitException {
 
         String updated = playlistServicePort.saveMusicInPlaylist(playlistId, musicId, userId);
 

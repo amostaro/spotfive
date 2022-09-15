@@ -21,8 +21,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.*;
 
 @ContextConfiguration(classes = {PlaylistController.class})
 @WebMvcTest(controllers = PlaylistController.class)
@@ -39,14 +39,15 @@ class PlaylistControllerTest {
 
     static String playlistId = "92d8123f-e9f6-4806-8e0e-1c6a5d46f2ed";
     static String musicId = "c96b8f6f-4049-4e6b-8687-82e29c05b735";
+    static String userId = "dd444a81-9588-4e6b-9d3d-1f1036a6eaa1";
 
     @DisplayName("Should add music in Playlist properly")
     @Test
     void shouldAddMusicInPlaylistProperly() throws Exception {
 
-        when(playlistService.saveMusicInPlaylist(playlistId, musicId)).thenReturn("Música adicionada à playlist com sucesso!");
+        when(playlistService.saveMusicInPlaylist(playlistId, musicId, userId)).thenReturn("Música adicionada à playlist com sucesso!");
 
-        var response = playlistController.addMusicInPlaylist(musicId, playlistId);
+        var response = playlistController.addMusicInPlaylist(musicId, playlistId, userId);
 
         assertNotNull(response);
 
