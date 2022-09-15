@@ -32,7 +32,7 @@ public class ValidationToken {
         } catch (FeignException.Unauthorized e) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "The token is not valid.");
         } catch (ServletException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             throw new RuntimeException(e);
         }
     }

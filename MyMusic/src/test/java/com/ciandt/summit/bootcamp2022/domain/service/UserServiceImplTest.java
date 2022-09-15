@@ -45,7 +45,7 @@ class UserServiceImplTest {
 
         var response = userService.verifyIfUserExists(userId);
 
-        assertEquals(userEntity, response.get());
+        assertEquals(userEntity, response);
 
     }
 
@@ -113,7 +113,7 @@ class UserServiceImplTest {
 
     @DisplayName("Should update user type by user id")
     @Test
-    void shouldUpdateUserTypeProperly() {
+    void shouldUpdateUserTypeProperly() throws UserNotFoundException {
 
         UserEntity userEntity = getUserEntity();
 

@@ -1,6 +1,7 @@
 package com.ciandt.summit.bootcamp2022.application.controller;
 
 import com.ciandt.summit.bootcamp2022.domain.port.interfaces.UserServicePort;
+import com.ciandt.summit.bootcamp2022.domain.service.exception.UserNotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,7 +17,7 @@ public class UserController {
 
     @Operation(description = "")
     @PutMapping("/{userId}")
-    public ResponseEntity<String> updateUserType(@PathVariable String userId, @RequestParam String userTypeId ) {
+    public ResponseEntity<String> updateUserType(@PathVariable String userId, @RequestParam String userTypeId ) throws UserNotFoundException {
 
         String updateUser = userServicePort.updateUserType(userId, userTypeId);
 
