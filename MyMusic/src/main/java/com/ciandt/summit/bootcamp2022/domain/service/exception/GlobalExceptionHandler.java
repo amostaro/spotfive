@@ -73,8 +73,8 @@ public class GlobalExceptionHandler {
         return getObjectResponseEntityBadRequest(exception.getMessage());
     }
 
-    @ExceptionHandler(UserBadRequestException.class)
-    public ResponseEntity<Object> handleException(UserBadRequestException exception){
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<Object> handleException(UserNotFoundException exception){
         return getObjectResponseEntityBadRequest((exception.getMessage()));
     }
 }

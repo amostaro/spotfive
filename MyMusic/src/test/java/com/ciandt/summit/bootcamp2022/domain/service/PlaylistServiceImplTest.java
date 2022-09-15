@@ -53,7 +53,7 @@ class PlaylistServiceImplTest {
 
     @DisplayName("Should save music on playlist properly")
     @Test
-    void shouldSaveMusicOnPlaylistProperly() throws MusicNotFoundException, PlaylistNotFoundException, UserBadRequestException, MusicLimitException {
+    void shouldSaveMusicOnPlaylistProperly() throws MusicNotFoundException, PlaylistNotFoundException, UserNotFoundException, MusicLimitException {
 
         ArtistEntity artistEntity = getArtistEntity();
         MusicEntity musicEntity = getMusicEntity(artistEntity);
@@ -85,7 +85,7 @@ class PlaylistServiceImplTest {
 
     @DisplayName("Should return music limit exception")
     @Test
-    void shouldReturnMusicLimitException() throws MusicNotFoundException, MusicLimitException, PlaylistNotFoundException, UserBadRequestException {
+    void shouldReturnMusicLimitException() throws MusicNotFoundException, MusicLimitException, PlaylistNotFoundException, UserNotFoundException {
 
         TipoUsuarioEntity tipoUsuarioEntity = new TipoUsuarioEntity();
         tipoUsuarioEntity.setId("mi561c28-4956-4k9c-3s4e-6l5461v3uio8");

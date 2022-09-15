@@ -28,7 +28,7 @@ public class PlaylistServiceImpl implements PlaylistServicePort {
     private UserServicePort userServicePort;
 
     @Override
-    public String saveMusicInPlaylist(String idPlaylist, String idMusic, String userId) throws PlaylistNotFoundException, MusicNotFoundException, UserBadRequestException, MusicLimitException {
+    public String saveMusicInPlaylist(String idPlaylist, String idMusic, String userId) throws PlaylistNotFoundException, MusicNotFoundException, UserNotFoundException, MusicLimitException {
 
         log.info("Iniciando processo de adição de uma música em uma playlist...");
 

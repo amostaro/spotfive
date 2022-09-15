@@ -3,7 +3,7 @@ package com.ciandt.summit.bootcamp2022.domain.service;
 import com.ciandt.summit.bootcamp2022.domain.data.entity.TipoUsuarioEntity;
 import com.ciandt.summit.bootcamp2022.domain.data.entity.UserEntity;
 import com.ciandt.summit.bootcamp2022.domain.port.repository.UserRepositoryPort;
-import com.ciandt.summit.bootcamp2022.domain.service.exception.UserBadRequestException;
+import com.ciandt.summit.bootcamp2022.domain.service.exception.UserNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -37,7 +37,7 @@ class UserServiceImplTest {
 
     @DisplayName("Should verify if user exist by user id")
     @Test
-    void shouldVerifyIfUserExistsProperly() throws UserBadRequestException {
+    void shouldVerifyIfUserExistsProperly() throws UserNotFoundException {
 
         UserEntity userEntity = getUserEntity();
 
@@ -51,12 +51,12 @@ class UserServiceImplTest {
 
     @DisplayName("Should return User Bad Request Exception")
     @Test
-    void shouldReturnUserBadRequestException() throws UserBadRequestException {
+    void shouldReturnUserBadRequestException() throws UserNotFoundException {
 
-        UserBadRequestException userBadRequestException = assertThrows(UserBadRequestException.class, () ->
+        UserNotFoundException userNotFoundException = assertThrows(UserNotFoundException.class, () ->
                 userService.verifyIfUserExists(userId));
 
-        assertEquals(userBadRequestExceptionMessage, userBadRequestException.getMessage());
+        assertEquals(userBadRequestExceptionMessage, userNotFoundException.getMessage());
 
     }
 
@@ -75,7 +75,7 @@ class UserServiceImplTest {
 
     @DisplayName("Should verify if user is premium by user id")
     @Test
-    void shouldVerifyIfUserIsPremiumProperly() throws UserBadRequestException {
+    void shouldVerifyIfUserIsPremiumProperly() throws UserNotFoundException {
 
         TipoUsuarioEntity tipoUsuarioEntity = new TipoUsuarioEntity();
         tipoUsuarioEntity.setId("sa764b91-1235-2s9x-2k4e-2s5687x4lco2");
@@ -94,7 +94,7 @@ class UserServiceImplTest {
 
     @DisplayName("Should verify if user is premium by user id and return false")
     @Test
-    void shouldVerifyIfUserIsPremiumAndReturnFalseProperly() throws UserBadRequestException {
+    void shouldVerifyIfUserIsPremiumAndReturnFalseProperly() throws UserNotFoundException {
 
         TipoUsuarioEntity tipoUsuarioEntity = new TipoUsuarioEntity();
         tipoUsuarioEntity.setId("sa764b91-1235-2s9x-2k4e-2s5687x4lco2");
