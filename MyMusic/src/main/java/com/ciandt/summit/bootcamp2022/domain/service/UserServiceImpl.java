@@ -4,6 +4,7 @@ import com.ciandt.summit.bootcamp2022.domain.data.entity.TipoUsuarioEntity;
 import com.ciandt.summit.bootcamp2022.domain.data.entity.UserEntity;
 import com.ciandt.summit.bootcamp2022.domain.port.interfaces.UserServicePort;
 import com.ciandt.summit.bootcamp2022.domain.port.repository.UserRepositoryPort;
+import com.ciandt.summit.bootcamp2022.domain.service.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -15,15 +16,16 @@ public class UserServiceImpl implements UserServicePort {
 
     private final UserRepositoryPort userRepositoryPort;
 
-    public Optional<UserEntity> verifyIfUserExists(String userId) {
-        return userRepositoryPort.findById(userId);
+    public Optional<UserEntity> verifyIfUserExists(String userId) throws UserNotFoundException {
+        return Optional.ofNullable(userRepositoryPort.findById(userId).orElseThrow(UserNotFoundException::new));
     }
 
     public String verifyUserType(String userId) {
         return userRepositoryPort.findUserTypeById(userId);
     }
 
-    public boolean userIsPremium(String userId) {
+    public boolean userIsPremium(String userId) throws UserNotFoundException {
+
         UserEntity userEntity = verifyIfUserExists(userId).get();
 
         String userType = verifyUserType(userEntity.getId());
