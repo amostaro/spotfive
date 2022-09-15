@@ -3,8 +3,6 @@ package com.ciandt.summit.bootcamp2022.domain.port.interfaces;
 import com.ciandt.summit.bootcamp2022.domain.data.entity.UserEntity;
 import com.ciandt.summit.bootcamp2022.domain.service.exception.UserNotFoundException;
 
-import java.util.Optional;
-
 public interface UserServicePort {
 
     UserEntity verifyIfUserExists(String userId) throws UserNotFoundException;
