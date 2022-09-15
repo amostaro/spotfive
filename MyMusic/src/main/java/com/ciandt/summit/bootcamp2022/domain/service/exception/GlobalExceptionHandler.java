@@ -53,6 +53,11 @@ public class GlobalExceptionHandler {
         return getObjectResponseEntityBadRequest(exception.getMessage());
     }
 
+    @ExceptionHandler(PlaylistNotFoundInUserException.class)
+    public ResponseEntity<Object> handleException(PlaylistNotFoundInUserException exception) {
+        return getObjectResponseEntityBadRequest(exception.getMessage());
+    }
+
     @ExceptionHandler(LengthValidationException.class)
     public ResponseEntity<Object> handleException(LengthValidationException exception) {
         return getObjectResponseEntityBadRequest(exception.getMessage());

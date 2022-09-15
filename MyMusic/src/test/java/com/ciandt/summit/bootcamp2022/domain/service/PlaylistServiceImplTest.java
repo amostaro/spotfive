@@ -53,18 +53,20 @@ class PlaylistServiceImplTest {
 
     @DisplayName("Should save music on playlist properly")
     @Test
-    void shouldSaveMusicOnPlaylistProperly() throws MusicNotFoundException, PlaylistNotFoundException, UserNotFoundException, MusicLimitException {
+    void shouldSaveMusicOnPlaylistProperly() throws MusicNotFoundException, PlaylistNotFoundException, UserNotFoundException, MusicLimitException, PlaylistNotFoundInUserException {
 
         ArtistEntity artistEntity = getArtistEntity();
         MusicEntity musicEntity = getMusicEntity(artistEntity);
         UserEntity userEntity = getUserEntity();
         PlaylistEntity playlistEntity = getPlaylistEntity(userEntity);
+        userEntity.setPlaylistEntity(playlistEntity);
 
         when(this.playlistRepositoryPort.findById(any())).thenReturn(Optional.of(playlistEntity));
         when(this.musicRepositoryPort.findById(any())).thenReturn(Optional.of(musicEntity));
 
         when(this.userServicePort.userIsPremium(any())).thenReturn(true);
         when(!this.userServicePort.userIsPremium(any())).thenReturn(false);
+        when(userServicePort.verifyIfUserExists(any())).thenReturn(userEntity);
 
         var response = playlistService.saveMusicInPlaylist(playlistId, musicId, userId);
 
@@ -86,7 +88,6 @@ class PlaylistServiceImplTest {
     @DisplayName("Should return music limit exception")
     @Test
     void shouldReturnMusicLimitException() throws MusicNotFoundException, MusicLimitException, PlaylistNotFoundException, UserNotFoundException {
-
         TipoUsuarioEntity tipoUsuarioEntity = new TipoUsuarioEntity();
         tipoUsuarioEntity.setId("mi561c28-4956-4k9c-3s4e-6l5461v3uio8");
 
@@ -101,6 +102,8 @@ class PlaylistServiceImplTest {
         userEntity.setTipoUsuarioEntity(tipoUsuarioEntity);
 
         PlaylistEntity playlistEntity = getPlaylistEntity(userEntity);
+        userEntity.setPlaylistEntity(playlistEntity);
+
         playlistEntity.getMusicEntityList().add(musicEntity);
         playlistEntity.getMusicEntityList().add(musicEntity2);
         playlistEntity.getMusicEntityList().add(musicEntity3);
@@ -109,6 +112,7 @@ class PlaylistServiceImplTest {
 
         when(this.playlistRepositoryPort.findById(playlistId)).thenReturn(Optional.of(playlistEntity));
         when(this.musicRepositoryPort.findById(musicId)).thenReturn(Optional.of(musicEntity));
+        when(userServicePort.verifyIfUserExists(any())).thenReturn(userEntity);
 
         MusicLimitException musicLimitException = assertThrows(MusicLimitException.class, () ->
                 playlistService.saveMusicInPlaylist(playlistId, musicId, userId));
