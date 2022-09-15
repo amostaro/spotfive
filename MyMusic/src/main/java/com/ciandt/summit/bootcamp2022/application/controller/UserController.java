@@ -15,7 +15,7 @@ public class UserController {
 
     private final UserServicePort userServicePort;
 
-    @Operation(description = "")
+    @Operation(description = "Altera o tipo de usuario")
     @PutMapping("/{userId}")
     public ResponseEntity<String> updateUserType(@PathVariable String userId, @RequestParam String userTypeId ) throws UserNotFoundException {
 
@@ -24,7 +24,7 @@ public class UserController {
         return new ResponseEntity<>(updateUser, HttpStatus.OK);
     }
 
-    @Operation(description = "")
+    @Operation(description = "Retorna o Id do tipo de usuario")
     @GetMapping("/{userId}")
     public ResponseEntity<String> getUserType(@RequestParam @PathVariable String userId) {
         var getUser = userServicePort.verifyUserType(userId);

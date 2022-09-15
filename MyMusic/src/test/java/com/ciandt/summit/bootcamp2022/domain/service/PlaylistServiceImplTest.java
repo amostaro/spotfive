@@ -53,18 +53,20 @@ class PlaylistServiceImplTest {
 
     @DisplayName("Should save music on playlist properly")
     @Test
-    void shouldSaveMusicOnPlaylistProperly() throws MusicNotFoundException, PlaylistNotFoundException, UserNotFoundException, MusicLimitException {
+    void shouldSaveMusicOnPlaylistProperly() throws MusicNotFoundException, PlaylistNotFoundException, UserNotFoundException, MusicLimitException, PlaylistNotFoundInUserException {
 
         ArtistEntity artistEntity = getArtistEntity();
         MusicEntity musicEntity = getMusicEntity(artistEntity);
         UserEntity userEntity = getUserEntity();
         PlaylistEntity playlistEntity = getPlaylistEntity(userEntity);
+        userEntity.setPlaylistEntity(playlistEntity);
 
         when(this.playlistRepositoryPort.findById(any())).thenReturn(Optional.of(playlistEntity));
         when(this.musicRepositoryPort.findById(any())).thenReturn(Optional.of(musicEntity));
 
         when(this.userServicePort.userIsPremium(any())).thenReturn(true);
         when(!this.userServicePort.userIsPremium(any())).thenReturn(false);
+        when(userServicePort.verifyIfUserExists(any())).thenReturn(userEntity);
 
         var response = playlistService.saveMusicInPlaylist(playlistId, musicId, userId);
 

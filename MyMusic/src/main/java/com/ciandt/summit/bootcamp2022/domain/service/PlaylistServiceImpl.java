@@ -2,6 +2,7 @@ package com.ciandt.summit.bootcamp2022.domain.service;
 
 import com.ciandt.summit.bootcamp2022.domain.data.entity.MusicEntity;
 import com.ciandt.summit.bootcamp2022.domain.data.entity.PlaylistEntity;
+import com.ciandt.summit.bootcamp2022.domain.data.entity.UserEntity;
 import com.ciandt.summit.bootcamp2022.domain.port.interfaces.PlaylistServicePort;
 import com.ciandt.summit.bootcamp2022.domain.port.interfaces.UserServicePort;
 import com.ciandt.summit.bootcamp2022.domain.port.repository.MusicRepositoryPort;
@@ -28,7 +29,7 @@ public class PlaylistServiceImpl implements PlaylistServicePort {
     private UserServicePort userServicePort;
 
     @Override
-    public String saveMusicInPlaylist(String idPlaylist, String idMusic, String userId) throws PlaylistNotFoundException, MusicNotFoundException, UserNotFoundException, MusicLimitException {
+    public String saveMusicInPlaylist(String idPlaylist, String idMusic, String userId) throws PlaylistNotFoundException, MusicNotFoundException, UserNotFoundException, MusicLimitException, PlaylistNotFoundInUserException {
 
         log.info("Iniciando processo de adição de uma música em uma playlist...");
 
@@ -37,6 +38,9 @@ public class PlaylistServiceImpl implements PlaylistServicePort {
 
         log.info("Busca da música '" + idMusic + INICIADA_EM + Calendar.getInstance().getTime() + ".");
         MusicEntity musicEntity = verifyIfMusicExists(idMusic);
+
+        log.info("Verificando se Playlist existe");
+        verifyIfPlaylistInUser(userId, playlistEntity);
 
         if (userServicePort.userIsPremium(userId) || (!userServicePort.userIsPremium(userId) && playlistEntity.getMusicEntityList().size() <= 4)) {
             playlistEntity.getMusicEntityList().add(musicEntity);
@@ -50,6 +54,13 @@ public class PlaylistServiceImpl implements PlaylistServicePort {
 
         } else {
             throw new MusicLimitException();
+        }
+    }
+
+    private void verifyIfPlaylistInUser(String userId, PlaylistEntity playlistEntity) throws UserNotFoundException, PlaylistNotFoundInUserException {
+        UserEntity userEntity = userServicePort.verifyIfUserExists(userId);
+        if(!userEntity.getPlaylistEntity().equals(playlistEntity)){
+            throw new PlaylistNotFoundInUserException();
         }
     }
 
