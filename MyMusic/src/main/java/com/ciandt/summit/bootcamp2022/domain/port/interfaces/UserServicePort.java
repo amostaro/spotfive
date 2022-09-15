@@ -7,11 +7,11 @@ import java.util.Optional;
 
 public interface UserServicePort {
 
-    Optional<UserEntity> verifyIfUserExists(String userId) throws UserNotFoundException;
+    UserEntity verifyIfUserExists(String userId) throws UserNotFoundException;
 
     String verifyUserType (String userId);
 
     boolean userIsPremium(String userId) throws UserNotFoundException;
 
-    String updateUserType(String userId, String userTypeId);
+    String updateUserType(String userId, String userTypeId) throws UserNotFoundException;
 }

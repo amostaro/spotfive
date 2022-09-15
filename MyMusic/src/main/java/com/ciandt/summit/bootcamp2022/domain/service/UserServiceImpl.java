@@ -16,8 +16,8 @@ public class UserServiceImpl implements UserServicePort {
 
     private final UserRepositoryPort userRepositoryPort;
 
-    public Optional<UserEntity> verifyIfUserExists(String userId) throws UserNotFoundException {
-        return Optional.ofNullable(userRepositoryPort.findById(userId).orElseThrow(UserNotFoundException::new));
+    public UserEntity verifyIfUserExists(String userId) throws UserNotFoundException {
+        return userRepositoryPort.findById(userId).orElseThrow(UserNotFoundException::new);
     }
 
     public String verifyUserType(String userId) {
@@ -26,21 +26,17 @@ public class UserServiceImpl implements UserServicePort {
 
     public boolean userIsPremium(String userId) throws UserNotFoundException {
 
-        UserEntity userEntity = verifyIfUserExists(userId).get();
+        UserEntity userEntity = verifyIfUserExists(userId);
 
         String userType = verifyUserType(userEntity.getId());
 
-        if (userType.equals("sa764b91-1235-2s9x-2k4e-2s5687x4lco2")) {
-            return true;
-        }
-
-        return false;
+        return userType.equals("sa764b91-1235-2s9x-2k4e-2s5687x4lco2");
     }
 
     @Override
-    public String updateUserType(String userId, String userTypeId) {
+    public String updateUserType(String userId, String userTypeId) throws UserNotFoundException {
 
-        UserEntity userEntity = userRepositoryPort.findById(userId).get();
+        UserEntity userEntity = verifyIfUserExists(userId);
 
         TipoUsuarioEntity tipoUsuarioEntity = new TipoUsuarioEntity();
         tipoUsuarioEntity.setId(userTypeId);

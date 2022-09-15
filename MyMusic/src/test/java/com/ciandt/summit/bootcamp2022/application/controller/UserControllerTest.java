@@ -2,6 +2,7 @@ package com.ciandt.summit.bootcamp2022.application.controller;
 
 import com.ciandt.summit.bootcamp2022.domain.data.entity.UserEntity;
 import com.ciandt.summit.bootcamp2022.domain.port.interfaces.UserServicePort;
+import com.ciandt.summit.bootcamp2022.domain.service.exception.UserNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -35,7 +36,7 @@ class UserControllerTest {
 
     @DisplayName("Should return response entity ok for update user type by user id")
     @Test
-    void shouldUpdateUserTypeProperly() {
+    void shouldUpdateUserTypeProperly() throws UserNotFoundException {
 
         UserEntity userEntity = getUserEntity();
 
