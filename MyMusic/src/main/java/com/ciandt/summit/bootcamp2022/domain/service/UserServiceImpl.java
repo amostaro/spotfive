@@ -8,8 +8,6 @@ import com.ciandt.summit.bootcamp2022.domain.service.exception.UserNotFoundExcep
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Optional;
-
 @Slf4j
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserServicePort {
