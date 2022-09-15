@@ -88,7 +88,6 @@ class PlaylistServiceImplTest {
     @DisplayName("Should return music limit exception")
     @Test
     void shouldReturnMusicLimitException() throws MusicNotFoundException, MusicLimitException, PlaylistNotFoundException, UserNotFoundException {
-
         TipoUsuarioEntity tipoUsuarioEntity = new TipoUsuarioEntity();
         tipoUsuarioEntity.setId("mi561c28-4956-4k9c-3s4e-6l5461v3uio8");
 
@@ -103,6 +102,8 @@ class PlaylistServiceImplTest {
         userEntity.setTipoUsuarioEntity(tipoUsuarioEntity);
 
         PlaylistEntity playlistEntity = getPlaylistEntity(userEntity);
+        userEntity.setPlaylistEntity(playlistEntity);
+
         playlistEntity.getMusicEntityList().add(musicEntity);
         playlistEntity.getMusicEntityList().add(musicEntity2);
         playlistEntity.getMusicEntityList().add(musicEntity3);
@@ -111,6 +112,7 @@ class PlaylistServiceImplTest {
 
         when(this.playlistRepositoryPort.findById(playlistId)).thenReturn(Optional.of(playlistEntity));
         when(this.musicRepositoryPort.findById(musicId)).thenReturn(Optional.of(musicEntity));
+        when(userServicePort.verifyIfUserExists(any())).thenReturn(userEntity);
 
         MusicLimitException musicLimitException = assertThrows(MusicLimitException.class, () ->
                 playlistService.saveMusicInPlaylist(playlistId, musicId, userId));
