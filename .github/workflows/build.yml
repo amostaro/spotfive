@@ -34,4 +34,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=amostaro_spotifive sonar:sonar -Pcoverage --file MyMusic/pom.xml
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=amostaro_spotifive sonar:sonar -Pcoverage --file MyMusic/pom.xml -Dsonar.exclusions=config/**, exception/**, configuration/**, dto/**, entity/**
+
