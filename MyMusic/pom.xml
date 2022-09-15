@@ -168,7 +168,6 @@
                         <exclude>com/ciandt/summit/bootcamp2022/domain/service/exception/GlobalExceptionHandler.*</exclude>
                     </excludes>
                 </configuration>
-
                 <executions>
                     <execution>
                         <id>prepare-agent</id>
@@ -182,11 +181,6 @@
                         <goals>
                             <goal>report</goal>
                         </goals>
-                        <configuration>
-                            <formats>
-                                <format>XML</format>
-                            </formats>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
