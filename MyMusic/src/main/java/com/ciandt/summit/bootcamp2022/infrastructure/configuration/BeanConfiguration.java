@@ -32,8 +32,8 @@ public class BeanConfiguration {
     }
 
     @Bean
-    MusicServicePort musicServicePort(MusicRepositoryPort musicRepositoryPort) {
-        return new MusicServiceImpl(musicRepositoryPort);
+    MusicServicePort musicServicePort(MusicRepositoryPort musicRepositoryPort, ModelMapper modelMapper) {
+        return new MusicServiceImpl(musicRepositoryPort, modelMapper);
     }
 
     @Bean
@@ -43,8 +43,8 @@ public class BeanConfiguration {
 
     @Bean
     PlaylistServicePort playlistServicePort(PlaylistRepositoryPort playlistRepositoryPort,
-                                            MusicRepositoryPort musicRepositoryPort) {
-        return new PlaylistServiceImpl(playlistRepositoryPort, musicRepositoryPort);
+                                            MusicRepositoryPort musicRepositoryPort,UserServicePort userServicePort) {
+        return new PlaylistServiceImpl(playlistRepositoryPort, musicRepositoryPort, userServicePort);
     }
 
     @Bean

@@ -9,7 +9,6 @@ import com.ciandt.summit.bootcamp2022.domain.service.exception.LengthValidationE
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Calendar;
 import java.util.LinkedHashSet;
@@ -21,10 +20,7 @@ import java.util.stream.Collectors;
 public class MusicServiceImpl implements MusicServicePort {
 
     private final MusicRepositoryPort musicRepositoryPort;
-
-    @Autowired
-    private ModelMapper modelMapper;
-
+    private final ModelMapper modelMapper;
 
     @Override
     public DataDTO findAllByNameLikeIgnoreCase(String searchName) throws LengthValidationException,

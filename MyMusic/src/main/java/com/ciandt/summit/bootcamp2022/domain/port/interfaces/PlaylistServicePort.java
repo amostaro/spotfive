@@ -1,12 +1,10 @@
 package com.ciandt.summit.bootcamp2022.domain.port.interfaces;
 
-import com.ciandt.summit.bootcamp2022.domain.service.exception.MusicNotFoundException;
-import com.ciandt.summit.bootcamp2022.domain.service.exception.MusicNotInPlaylistException;
-import com.ciandt.summit.bootcamp2022.domain.service.exception.PlaylistNotFoundException;
+import com.ciandt.summit.bootcamp2022.domain.service.exception.*;
 
 public interface PlaylistServicePort {
 
-    String saveMusicInPlaylist(String idPlaylist, String idMusic, String userId) throws PlaylistNotFoundException, MusicNotFoundException, MusicNotInPlaylistException;
+    String saveMusicInPlaylist(String idPlaylist, String idMusic, String userId) throws PlaylistNotFoundException, MusicNotFoundException, MusicNotInPlaylistException, UserNotFoundException, MusicLimitException, PlaylistNotFoundInUserException;
 
     void deleteMusicInPlaylist(String idPlaylist, String idMusic) throws PlaylistNotFoundException, MusicNotFoundException, MusicNotInPlaylistException;
 }
