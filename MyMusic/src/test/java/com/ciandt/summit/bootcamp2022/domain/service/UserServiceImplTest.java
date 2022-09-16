@@ -1,24 +1,13 @@
 package com.ciandt.summit.bootcamp2022.domain.service;
 
-import com.ciandt.summit.bootcamp2022.domain.data.entity.PlaylistEntity;
 import com.ciandt.summit.bootcamp2022.domain.data.entity.TipoUsuarioEntity;
 import com.ciandt.summit.bootcamp2022.domain.data.entity.UserEntity;
 import com.ciandt.summit.bootcamp2022.domain.port.repository.UserRepositoryPort;
 import com.ciandt.summit.bootcamp2022.domain.service.exception.UserNotFoundException;
-import com.ciandt.summit.bootcamp2022.infrastructure.adapter.repository.SpringUserRepository;
-import com.ciandt.summit.bootcamp2022.infrastructure.adapter.repository.UserRepositoryAdapter;
-
-import java.util.HashSet;
-
-import org.hsqldb.rights.User;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
