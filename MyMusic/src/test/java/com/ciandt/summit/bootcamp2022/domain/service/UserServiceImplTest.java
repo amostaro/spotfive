@@ -16,10 +16,13 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ContextConfiguration(classes = {UserServiceImpl.class})
 @ExtendWith(SpringExtension.class)
@@ -52,7 +55,7 @@ class UserServiceImplTest {
 
     @DisplayName("Should return User Bad Request Exception")
     @Test
-    void shouldReturnUserBadRequestException() throws UserNotFoundException {
+    void shouldReturnUserBadRequestException() {
 
         UserNotFoundException userNotFoundException = assertThrows(UserNotFoundException.class, () ->
                 userService.verifyIfUserExists(userId));
@@ -89,7 +92,7 @@ class UserServiceImplTest {
 
         boolean responseBoolean = userService.userIsPremium(userId);
 
-        assertEquals(true, responseBoolean);
+        assertTrue(responseBoolean);
 
     }
 
@@ -108,24 +111,40 @@ class UserServiceImplTest {
 
         boolean responseBoolean = userService.userIsPremium(userId);
 
-        assertEquals(false, responseBoolean);
+        assertFalse(responseBoolean);
 
     }
 
     @DisplayName("Should update user type by user id")
     @Test
     void shouldUpdateUserTypeProperly() throws UserNotFoundException {
-
         UserEntity userEntity = getUserEntity();
-
         when(this.userRepositoryPort.findById(any())).thenReturn(Optional.of(userEntity));
-
         var response = userService.updateUserType(userId, userTypeId);
 
         verify(userRepositoryPort, times(1)).saveUser(any(UserEntity.class));
 
         assertEquals("Usuário atualizado com sucesso!", response);
+    }
 
+    @DisplayName("Should update user type by user id")
+    @Test
+    void shouldUpdateUserTypeProperlyVerify() throws UserNotFoundException {
+        UserEntity userEntity = mock(UserEntity.class);
+
+        when(this.userRepositoryPort.findById(any())).thenReturn(Optional.of(userEntity));
+
+        userService.updateUserType(userId, userTypeId);
+
+        verify(userEntity, times(1))
+                .setTipoUsuarioEntity(any(TipoUsuarioEntity.class));
+    }
+    @DisplayName("Should Alter Type user entity ")
+    @Test
+    void shouldAlterTypeUserEntity(){
+        TipoUsuarioEntity tipoUsuarioEntity1 = userService.getTipoUsuarioEntity("3");
+
+        assertEquals("3", tipoUsuarioEntity1.getId());
     }
 
     private static UserEntity getUserEntity() {

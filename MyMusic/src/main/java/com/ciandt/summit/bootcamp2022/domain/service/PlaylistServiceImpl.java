@@ -9,7 +9,6 @@ import com.ciandt.summit.bootcamp2022.domain.port.repository.MusicRepositoryPort
 import com.ciandt.summit.bootcamp2022.domain.port.repository.PlaylistRepositoryPort;
 import com.ciandt.summit.bootcamp2022.domain.service.exception.*;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Calendar;
 
@@ -19,14 +18,13 @@ public class PlaylistServiceImpl implements PlaylistServicePort {
     public static final String INICIADA_EM = "' iniciada em: ";
     private final PlaylistRepositoryPort playlistRepositoryPort;
     private final MusicRepositoryPort musicRepositoryPort;
+    private final UserServicePort userServicePort;
 
-    public PlaylistServiceImpl(PlaylistRepositoryPort playlistRepositoryPort, MusicRepositoryPort musicRepositoryPort) {
+    public PlaylistServiceImpl(PlaylistRepositoryPort playlistRepositoryPort, MusicRepositoryPort musicRepositoryPort, UserServicePort userServicePort) {
         this.playlistRepositoryPort = playlistRepositoryPort;
         this.musicRepositoryPort = musicRepositoryPort;
+        this.userServicePort = userServicePort;
     }
-
-    @Autowired
-    private UserServicePort userServicePort;
 
     @Override
     public String saveMusicInPlaylist(String idPlaylist, String idMusic, String userId) throws PlaylistNotFoundException, MusicNotFoundException, UserNotFoundException, MusicLimitException, PlaylistNotFoundInUserException {

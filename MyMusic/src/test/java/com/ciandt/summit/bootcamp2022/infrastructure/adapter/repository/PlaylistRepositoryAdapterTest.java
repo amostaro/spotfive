@@ -58,7 +58,7 @@ class PlaylistRepositoryAdapterTest {
 
         assertNotNull(responsePlaylistEntity);
 
-        assertEquals("1", responsePlaylistEntity.get().getId());
+        assertEquals("1", responsePlaylistEntity.orElse(new PlaylistEntity()).getId());
     }
 
     private static PlaylistEntity getPlaylistEntity() {

@@ -15,7 +15,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -27,9 +26,6 @@ import static org.mockito.Mockito.*;
 @ContextConfiguration(classes = {PlaylistController.class})
 @WebMvcTest(controllers = PlaylistController.class)
 class PlaylistControllerTest {
-
-    @Autowired
-    private MockMvc mockMvc;
 
     @Autowired
     private PlaylistController playlistController;
