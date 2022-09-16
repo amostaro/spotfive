@@ -7,7 +7,7 @@ import java.util.Calendar;
 @Slf4j
 public class PlaylistNotFoundInUserException extends Exception {
 
-    private static final String MESSAGE = "Playlist não e do usuario";
+    private static final String MESSAGE = "Playlist não é do usuario";
     public PlaylistNotFoundInUserException() {
         super(MESSAGE);
         log.error("Processo finalizado com falha.");

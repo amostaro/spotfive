@@ -41,7 +41,6 @@ public class PlaylistServiceImpl implements PlaylistServicePort {
 
         log.info("Verificando se Playlist existe");
         verifyIfPlaylistInUser(userId, playlistEntity);
-
         if (userServicePort.userIsPremium(userId) || (!userServicePort.userIsPremium(userId) && playlistEntity.getMusicEntityList().size() <= 4)) {
             playlistEntity.getMusicEntityList().add(musicEntity);
 
@@ -57,7 +56,7 @@ public class PlaylistServiceImpl implements PlaylistServicePort {
         }
     }
 
-    private void verifyIfPlaylistInUser(String userId, PlaylistEntity playlistEntity) throws UserNotFoundException, PlaylistNotFoundInUserException {
+    public void verifyIfPlaylistInUser(String userId, PlaylistEntity playlistEntity) throws UserNotFoundException, PlaylistNotFoundInUserException {
         UserEntity userEntity = userServicePort.verifyIfUserExists(userId);
         if(!userEntity.getPlaylistEntity().equals(playlistEntity)){
             throw new PlaylistNotFoundInUserException();
