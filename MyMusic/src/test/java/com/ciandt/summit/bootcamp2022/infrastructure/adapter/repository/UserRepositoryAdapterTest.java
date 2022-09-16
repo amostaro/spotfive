@@ -53,7 +53,7 @@ class UserRepositoryAdapterTest {
 
         var response = userRepositoryAdapter.findById(userId);
 
-        assertEquals(userEntity, response.get());
+        assertEquals(userEntity, response.orElse(new UserEntity()));
     }
 
     @DisplayName("Should save user by user entity")

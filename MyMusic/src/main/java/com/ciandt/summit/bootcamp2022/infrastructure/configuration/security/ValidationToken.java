@@ -3,6 +3,7 @@ package com.ciandt.summit.bootcamp2022.infrastructure.configuration.security;
 import com.ciandt.summit.bootcamp2022.infrastructure.configuration.feign.AuthenticationApiIntegration;
 import com.ciandt.summit.bootcamp2022.infrastructure.configuration.security.dto.CreateAuthorizerRequest;
 import feign.FeignException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,10 +16,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Service
+@RequiredArgsConstructor
 public class ValidationToken {
 
-    @Autowired
-    private AuthenticationApiIntegration authenticationApiIntegration;
+    private final AuthenticationApiIntegration authenticationApiIntegration;
 
     void validationTokenMethod(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain, CreateAuthorizerRequest data) throws IOException {
         try {

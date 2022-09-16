@@ -16,8 +16,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -52,7 +51,7 @@ class UserServiceImplTest {
 
     @DisplayName("Should return User Bad Request Exception")
     @Test
-    void shouldReturnUserBadRequestException() throws UserNotFoundException {
+    void shouldReturnUserBadRequestException() {
 
         UserNotFoundException userNotFoundException = assertThrows(UserNotFoundException.class, () ->
                 userService.verifyIfUserExists(userId));
@@ -89,7 +88,7 @@ class UserServiceImplTest {
 
         boolean responseBoolean = userService.userIsPremium(userId);
 
-        assertEquals(true, responseBoolean);
+        assertTrue(responseBoolean);
 
     }
 
@@ -108,7 +107,7 @@ class UserServiceImplTest {
 
         boolean responseBoolean = userService.userIsPremium(userId);
 
-        assertEquals(false, responseBoolean);
+        assertFalse(responseBoolean);
 
     }
 

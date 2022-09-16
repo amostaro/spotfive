@@ -50,7 +50,6 @@ class MusicServiceImplTest {
     void shouldReturnMusicListProperlyTest() throws ArtistOrMusicNotFoundException, LengthValidationException {
 
         List<MusicEntity> musicEntityList = new ArrayList<>();
-        List<MusicDTO> musicDTOList = new ArrayList<>();
 
         MusicEntity musicEntity = getMusicEntity();
         MusicDTO musicDTO = getMusicDTO();
@@ -60,7 +59,6 @@ class MusicServiceImplTest {
         dataDTO.setData(Set.of(musicDTO));
 
         musicEntityList.add(musicEntity);
-        musicDTOList.add(musicDTO);
         String searchName = "Eric";
 
         when(modelMapper.map(musicEntity, MusicDTO.class)).thenReturn(musicDTO);
@@ -73,7 +71,7 @@ class MusicServiceImplTest {
 
     @Test
     @DisplayName("Should return length validation exception")
-    void shouldReturnLengthValidationExceptionTest() throws LengthValidationException {
+    void shouldReturnLengthValidationExceptionTest() {
 
         LengthValidationException lengthValidationException = assertThrows(LengthValidationException.class, () ->
                 musicService.findAllByNameLikeIgnoreCase(lengthValidationTest));
@@ -83,7 +81,7 @@ class MusicServiceImplTest {
 
     @Test
     @DisplayName("Should return artist or music not found exception")
-    void shouldReturnArtistOrMusicNotFoundExceptionTest() throws ArtistOrMusicNotFoundException {
+    void shouldReturnArtistOrMusicNotFoundExceptionTest() {
 
         ArtistOrMusicNotFoundException artistOrMusicNotFoundException =
                 assertThrows(ArtistOrMusicNotFoundException.class,

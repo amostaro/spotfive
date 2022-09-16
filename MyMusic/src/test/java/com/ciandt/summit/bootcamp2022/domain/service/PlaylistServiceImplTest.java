@@ -13,7 +13,6 @@ import org.mockito.InjectMocks;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.security.core.parameters.P;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -255,38 +254,6 @@ class PlaylistServiceImplTest {
         musicEntity.setId("1");
         musicEntity.setName("Matheus");
         return musicEntity;
-    }
-
-    private static MusicEntity getMusicEntity2(ArtistEntity artistEntity) {
-        MusicEntity musicEntity2 = new MusicEntity();
-        musicEntity2.setArtistEntity(artistEntity);
-        musicEntity2.setId("2");
-        musicEntity2.setName("Matheus");
-        return musicEntity2;
-    }
-
-    private static MusicEntity getMusicEntity3(ArtistEntity artistEntity) {
-        MusicEntity musicEntity3 = new MusicEntity();
-        musicEntity3.setArtistEntity(artistEntity);
-        musicEntity3.setId("3");
-        musicEntity3.setName("Matheus");
-        return musicEntity3;
-    }
-
-    private static MusicEntity getMusicEntity4(ArtistEntity artistEntity) {
-        MusicEntity musicEntity4 = new MusicEntity();
-        musicEntity4.setArtistEntity(artistEntity);
-        musicEntity4.setId("4");
-        musicEntity4.setName("Matheus");
-        return musicEntity4;
-    }
-
-    private static MusicEntity getMusicEntity5(ArtistEntity artistEntity) {
-        MusicEntity musicEntity5 = new MusicEntity();
-        musicEntity5.setArtistEntity(artistEntity);
-        musicEntity5.setId("5");
-        musicEntity5.setName("Matheus");
-        return musicEntity5;
     }
 
     private static PlaylistEntity getPlaylistEntity(UserEntity userEntity) {
