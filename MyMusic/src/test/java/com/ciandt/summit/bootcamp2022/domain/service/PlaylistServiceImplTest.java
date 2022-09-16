@@ -100,6 +100,37 @@ class PlaylistServiceImplTest {
         assertEquals("Música adicionada à playlist com sucesso!", response);
     }
 
+    @DisplayName("Should save music on playlist false")
+    @Test
+    void shouldSaveMusicInComum() throws MusicNotFoundException, PlaylistNotFoundException, UserNotFoundException, MusicLimitException, PlaylistNotFoundInUserException {
+
+
+        ArtistEntity artistEntity = getArtistEntity();
+        MusicEntity musicEntity = getMusicEntity(artistEntity);
+        MusicEntity musicEntity2 = getMusicEntity(artistEntity);
+        MusicEntity musicEntity3 = getMusicEntity(artistEntity);
+        MusicEntity musicEntity4 = getMusicEntity(artistEntity);
+
+        UserEntity userEntity = getUserEntity();
+        PlaylistEntity playlistEntity = getPlaylistEntity(userEntity);
+        userEntity.setPlaylistEntity(playlistEntity);
+        playlistEntity.getMusicEntityList().add(musicEntity);
+        playlistEntity.getMusicEntityList().add(musicEntity2);
+        playlistEntity.getMusicEntityList().add(musicEntity3);
+        playlistEntity.getMusicEntityList().add(musicEntity4);
+
+        when(this.playlistRepositoryPort.findById(any())).thenReturn(Optional.of(playlistEntity));
+        when(this.musicRepositoryPort.findById(any())).thenReturn(Optional.of(musicEntity));
+
+        when(this.userServicePort.userIsPremium(any())).thenReturn(true);
+        when(!this.userServicePort.userIsPremium(any())).thenReturn(false);
+        when(userServicePort.verifyIfUserExists(any())).thenReturn(userEntity);
+
+        String mensagem = playlistService.saveMusicInPlaylist(playlistId, musicId, userId);
+
+        assertEquals("Música adicionada à playlist com sucesso!", mensagem);
+    }
+
     @DisplayName("Should save music on playlist properly")
     @Test
     void shouldSaveMusicInPremiumFalse() throws MusicNotFoundException, PlaylistNotFoundException, UserNotFoundException, MusicLimitException, PlaylistNotFoundInUserException {
@@ -193,7 +224,7 @@ class PlaylistServiceImplTest {
         when(userServicePort.verifyIfUserExists(any())).thenReturn(userEntity);
 
         PlaylistNotFoundInUserException playlistNotFoundInUserException = assertThrows(PlaylistNotFoundInUserException.class, () ->
-                playlistService.verifyIfPlaylistInUser(userId,playlistEntity));
+                playlistService.verifyIfPlaylistInUser(userId, playlistEntity));
 
         assertEquals(playlistNotFoundInUserMessage, playlistNotFoundInUserException.getMessage());
     }
@@ -210,6 +241,33 @@ class PlaylistServiceImplTest {
 
     @DisplayName("Should remove music of playlist properly")
     @Test
+    void shouldverifyIfMusicExistsInPlaylistDelete() throws MusicNotFoundException {
+
+        ArtistEntity artistEntity = getArtistEntity();
+        MusicEntity musicEntity = getMusicEntity(artistEntity);
+        UserEntity userEntity = getUserEntity();
+        PlaylistEntity playlistEntity = getPlaylistEntity(userEntity);
+        PlaylistEntity playlistEntity1 = new PlaylistEntity();
+        playlistEntity1.setId("2");
+        playlistEntity1.setMusicEntityList(new HashSet<>());
+        MusicEntity musicEntity1 = new MusicEntity();
+        musicEntity1.setId("2");
+        playlistEntity1.getMusicEntityList().add(musicEntity1);
+
+        playlistEntity.getMusicEntityList().add(musicEntity);
+        when(playlistRepositoryPort.findById(any())).thenReturn(Optional.of(playlistEntity1));
+        when(musicRepositoryPort.findById(any())).thenReturn(Optional.of(musicEntity));
+
+
+        MusicNotInPlaylistException musicNotInPlaylistException = assertThrows(MusicNotInPlaylistException.class,
+                () -> playlistService.deleteMusicInPlaylist("1", "1"));
+
+        assertEquals(musicNotInPlaylistMessage, musicNotInPlaylistException.getMessage());
+    }
+
+
+    @DisplayName("Should remove music of playlist properly")
+    @Test
     void shouldRemoveMusicOfPlaylistProperly() throws MusicNotFoundException, PlaylistNotFoundException,
             MusicNotInPlaylistException {
 
@@ -219,7 +277,6 @@ class PlaylistServiceImplTest {
         PlaylistEntity playlistEntity = getPlaylistEntity(userEntity);
 
         playlistEntity.getMusicEntityList().add(musicEntity);
-
         when(playlistRepositoryPort.findById(any())).thenReturn(Optional.of(playlistEntity));
         when(musicRepositoryPort.findById(any())).thenReturn(Optional.of(musicEntity));
 

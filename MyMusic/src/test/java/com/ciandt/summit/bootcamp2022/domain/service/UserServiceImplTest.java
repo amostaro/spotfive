@@ -1,13 +1,24 @@
 package com.ciandt.summit.bootcamp2022.domain.service;
 
+import com.ciandt.summit.bootcamp2022.domain.data.entity.PlaylistEntity;
 import com.ciandt.summit.bootcamp2022.domain.data.entity.TipoUsuarioEntity;
 import com.ciandt.summit.bootcamp2022.domain.data.entity.UserEntity;
 import com.ciandt.summit.bootcamp2022.domain.port.repository.UserRepositoryPort;
 import com.ciandt.summit.bootcamp2022.domain.service.exception.UserNotFoundException;
+import com.ciandt.summit.bootcamp2022.infrastructure.adapter.repository.SpringUserRepository;
+import com.ciandt.summit.bootcamp2022.infrastructure.adapter.repository.UserRepositoryAdapter;
+
+import java.util.HashSet;
+
+import org.hsqldb.rights.User;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -17,8 +28,12 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ContextConfiguration(classes = {UserServiceImpl.class})
 @ExtendWith(SpringExtension.class)
@@ -114,17 +129,33 @@ class UserServiceImplTest {
     @DisplayName("Should update user type by user id")
     @Test
     void shouldUpdateUserTypeProperly() throws UserNotFoundException {
-
         UserEntity userEntity = getUserEntity();
-
         when(this.userRepositoryPort.findById(any())).thenReturn(Optional.of(userEntity));
-
         var response = userService.updateUserType(userId, userTypeId);
 
         verify(userRepositoryPort, times(1)).saveUser(any(UserEntity.class));
 
         assertEquals("Usuário atualizado com sucesso!", response);
+    }
 
+    @DisplayName("Should update user type by user id")
+    @Test
+    void shouldUpdateUserTypeProperlyVerify() throws UserNotFoundException {
+        UserEntity userEntity = mock(UserEntity.class);
+
+        when(this.userRepositoryPort.findById(any())).thenReturn(Optional.of(userEntity));
+
+        userService.updateUserType(userId, userTypeId);
+
+        verify(userEntity, times(1))
+                .setTipoUsuarioEntity(any(TipoUsuarioEntity.class));
+    }
+    @DisplayName("Should Alter Type user entity ")
+    @Test
+    void shouldAlterTypeUserEntity(){
+        TipoUsuarioEntity tipoUsuarioEntity1 = userService.getTipoUsuarioEntity("3");
+
+        assertEquals("3", tipoUsuarioEntity1.getId());
     }
 
     private static UserEntity getUserEntity() {

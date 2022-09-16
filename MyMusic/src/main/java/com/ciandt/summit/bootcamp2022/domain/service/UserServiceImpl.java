@@ -36,13 +36,20 @@ public class UserServiceImpl implements UserServicePort {
 
         UserEntity userEntity = verifyIfUserExists(userId);
 
-        TipoUsuarioEntity tipoUsuarioEntity = new TipoUsuarioEntity();
-        tipoUsuarioEntity.setId(userTypeId);
+        TipoUsuarioEntity tipoUsuarioEntity = getTipoUsuarioEntity(userTypeId);
+
         userEntity.setTipoUsuarioEntity(tipoUsuarioEntity);
 
         userRepositoryPort.saveUser(userEntity);
 
         return "Usuário atualizado com sucesso!";
+    }
+
+    public TipoUsuarioEntity getTipoUsuarioEntity(String userTypeId) {
+        TipoUsuarioEntity tipoUsuarioEntity = new TipoUsuarioEntity();
+
+        tipoUsuarioEntity.setId(userTypeId);
+        return tipoUsuarioEntity;
     }
 
 }
